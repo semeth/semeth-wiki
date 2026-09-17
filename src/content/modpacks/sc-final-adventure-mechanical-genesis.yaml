@@ -1,0 +1,22 @@
+name: SC Final Adventure - Mechanical Genesis
+tagline: Feeling lonely as the only soul in the world. Time to craft some friends.
+description: >-
+  Mechanical Genesis is a Forge 1.20.1 Create-centered pack: you are the world’s only inhabitant until you engineer
+  life, materials, and the path forward. Progression meets innovation — build assembly lines, explore expanded biomes
+  and dimensions, and follow a questline that shows what is craftable without dumping every recipe on you.
+
+
+  Harness intricate machinery to craft everything from basic ingredients to rare materials — even life itself. Live
+  comfortably with backpacks, organized storage, and tooltips, then work toward an endgame you have to discover
+  rather than be handed. You will need a lot of assembly lines.
+accent: '#5b9aa8'
+loader: Forge
+minecraftVersions:
+  - '1.20.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/modpacks/sc-final-adventure-mechanical-genesis
+curseforgeProjectId: 1563026
+requirements:
+  - 'CurseForge App or a Forge 1.20.1 instance'
+relatedMods: []
+icon: sc-final-adventure-mechanical-genesis.png
+order: 4

@@ -1,0 +1,19 @@
+---
+title: Getting started
+pageSlug: getting-started
+mod: eventmaker
+section: getting-started
+order: 1
+---
+
+EventMaker is an authoring toolkit: invisible triggers, location markers, and datapack (or KubeJS) command polls.
+
+Authoring flow:
+
+1. Place **Event Trigger** blocks, or inject trigger IDs onto normal blocks.
+2. Optionally place **Event Location** blocks (or injected locations) with the same ID.
+3. Create a poll in `data/<namespace>/command_poll/`.
+4. Create an event in `data/<namespace>/event_trigger/` and reference that poll via `commands_poll`.
+5. Choose command origin with `command_location` and `command_location_range`.
+
+Use it inside [EpicQuest Dungeoning](/mods/epicquest-dungeoning) pieces for doors, loot gates, and extract triggers.

@@ -1,0 +1,27 @@
+---
+title: Datapack authoring
+pageSlug: datapack-authoring
+mod: adventure-engine
+section: config
+order: 3
+---
+
+Content is datapack JSON. A **target** file says “this structure can offer work” and points at four polls: rank, quest, reward, revenge. Polls are weighted lists. Quest templates are the actual objective.
+
+```
+data/<your_namespace>/adventure_engine/
+  targets/          polls/rank/
+  ranks/            polls/quest/
+  quest_templates/  polls/reward/
+  polls/revenge/
+```
+
+Works as a normal datapack, as `kubejs/data/...`, or as files under `config/adventure_engine/` (that last one overrides the jar). `/adventure reload` picks up the overlay.
+
+Hook any structure id or structure tag, including other mods. Easiest start is copy a target from the jar and change the structure list + poll ids.
+
+On quest poll entries, `role` is `primary`, `side`, or `any`. `rank_min` / `rank_max` use Scout=1 … Legend=5. Rank polls can require distance from the box center (`min_distance` / `max_distance`).
+
+`item_bands` on find and sacrifice use those same 1–5 keys. The game rolls **one** item from the list for that rank. Find puts a marked stack in a chest (or drops it glowing). Sacrifice does not plant anything; toss any item from the band.
+
+Reuse `adventure_engine:standard_rewards` if you do not want to write loot. Vanilla XP is `minecraft_xp` on the rank file.

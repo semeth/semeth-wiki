@@ -1,0 +1,24 @@
+name: EpicQuest Dungeoning
+tagline: Author jigsaw dungeon packs, key a portal, and send players into a generated instance that wipes on extract.
+description: >-
+  EpicQuest Dungeoning lets pack authors register dungeon packs in config and open them through keyed portals.
+  Layouts generate in a shared void dimension when a keystone is activated, then wipe on extract until the next
+  activation.
+
+
+  Pair it with EventMaker to drop invisible triggers inside jigsaw pieces — doors, corridors, boss rooms, loot
+  gates, and cutscenes — then call the dungeon completion API when a trigger should extract the party.
+category: packs
+accent: '#e07a3d'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/epicquestdungeoning
+curseforgeProjectId: 1584183
+requirements:
+  - 'Java 21 · NeoForge 1.21.1'
+  - 'EventMaker strongly recommended for in-piece events'
+relatedMods:
+  - eventmaker
+  - epicquest-hub
+icon: epicquest-dungeoning.png

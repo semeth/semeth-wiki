@@ -1,0 +1,27 @@
+name: Spell Codex Ars Compat
+tagline: Convert Ars Nouveau caster tomes into Codex cards and cast them from the Actionbar with Iron’s mana.
+description: >-
+  This compat layer sits on Spell Codex and Spell Actionbar. Place a caster tome in the Spell Conversion Station,
+  add it to the Codex, and that glyph recipe becomes an Ars Nouveau school card. Cast it from the action bar using
+  Iron’s mana — Ars source is not spent, and there is no Iron’s cooldown.
+
+
+  Tomes from Ars and Ars addons are included automatically when they use the standard ars_nouveau:caster_tome
+  recipe type. Two tomes with the same glyphs share a spell; extra glyphs (for example Amplify) stay a separate card.
+category: magic
+accent: '#5b8def'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/spell-codex-irons-spellbooks-ars-nouveau-compat
+curseforgeProjectId: 1672518
+requirements:
+  - 'NeoForge 1.21.1'
+  - 'Iron’s Spells ’n Spellbooks'
+  - 'Ars Nouveau'
+  - 'Spell Codex'
+  - 'Spell Actionbar'
+relatedMods:
+  - spell-codex
+  - spell-actionbar
+icon: spell-codex-ars-compat.png

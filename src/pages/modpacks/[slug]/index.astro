@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CurseForgeButton from '../../../components/CurseForgeButton.astro';
+import ModLogo from '../../../components/ModLogo.astro';
+import ModNav from '../../../components/ModNav.astro';
+import RelatedModList from '../../../components/RelatedModList.astro';
+import { getDownloadCount } from '../../../lib/curseforge';
+import {
+  getChangelogsForModpack,
+  getGuidesForModpack,
+  getModpacks,
+  getMods,
+  relatedModEntries,
+} from '../../../lib/content';
+import { formatDate } from '../../../lib/format';
+
+export async function getStaticPaths() {
+  const packs = await getModpacks();
+  return packs.map((pack) => ({ params: { slug: pack.id } }));
+}
+
+const { slug } = Astro.params;
+const packs = await getModpacks();
+const pack = packs.find((entry) => entry.id === slug);
+if (!pack) {
+  return Astro.redirect('/');
+}
+
+const guides = await getGuidesForModpack(pack.id);
+const changelogs = await getChangelogsForModpack(pack.id);
+const latest = changelogs[0];
+const mods = await getMods();
+const related = relatedModEntries(pack, mods);
+const downloads = await getDownloadCount(pack.data.curseforgeProjectId);
+---
+
+<BaseLayout title={pack.data.name} description={pack.data.tagline} accent={pack.data.accent}>
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[16rem_minmax(0,1fr)] sm:px-6">
+    <ModNav mod={pack} guides={guides} current="overview" kind="modpack" />
+    <article>
+      <p class="text-xs uppercase tracking-[0.28em] text-gold">Modpack</p>
+      <div class="mt-4 flex items-center gap-4">
+        <ModLogo mod={pack} size="lg" kind="modpack" />
+        <h1 class="font-display text-5xl text-white">{pack.data.name}</h1>
+      </div>
+      <p class="mt-4 max-w-2xl text-lg text-muted">{pack.data.tagline}</p>
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <CurseForgeButton mod={pack} downloads={downloads} />
+        <span class="text-sm text-muted">{pack.data.loader} · {pack.data.minecraftVersions.join(', ')}</span>
+      </div>
+
+      {
+        pack.data.requirements.length > 0 && (
+          <aside class="mt-8 rounded-2xl border border-gold/30 bg-gold/5 px-5 py-4">
+            <p class="text-xs uppercase tracking-wider text-gold">Requires</p>
+            <ul class="mt-2 space-y-1 text-sm text-parchment/90">
+              {pack.data.requirements.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </aside>
+        )
+      }
+
+      <div class="prose-wiki mt-10">
+        {pack.data.description.split('\n\n').map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+
+      {
+        guides.length > 0 && (
+          <section class="mt-12">
+            <h2 class="font-display text-3xl text-white">Guides</h2>
+            <ul class="mt-4 divide-y divide-line rounded-2xl border border-line bg-surface/60">
+              {guides.map((guide) => (
+                <li>
+                  <a href={`/modpacks/${pack.id}/${guide.data.pageSlug}`} class="block px-5 py-4 hover:bg-raised/50">
+                    <p class="text-parchment">{guide.data.title}</p>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      {
+        latest && (
+          <section class="mt-12">
+            <div class="flex items-baseline justify-between gap-4">
+              <h2 class="font-display text-3xl text-white">Latest update</h2>
+              <a href={`/modpacks/${pack.id}/changelog`} class="text-sm text-gold hover:text-gold-soft">
+                Full changelog
+              </a>
+            </div>
+            <div class="mt-4 rounded-2xl border border-line bg-surface/60 p-5">
+              <p class="text-gold">
+                {latest.version}
+                <span class="ml-2 text-xs text-muted">{formatDate(latest.date)}</span>
+              </p>
+              <p class="mt-2">{latest.summary}</p>
+            </div>
+          </section>
+        )
+      }
+
+      {
+        related.length > 0 && (
+          <section class="mt-12">
+            <h2 class="font-display text-3xl text-white">Related mods</h2>
+            <RelatedModList mods={related} />
+          </section>
+        )
+      }
+    </article>
+  </div>
+</BaseLayout>

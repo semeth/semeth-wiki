@@ -1,0 +1,24 @@
+name: SC Final Adventure - Machines
+tagline: Hunt bosses, farm their essence, and craft your way to the End in a guided 1.21.1 factory-and-adventure pack.
+description: >-
+  Final Adventure: Machines blends mechanical engineering, magical progression, and high-stakes combat into one
+  guided survival experience for Minecraft 1.21.1 (NeoForge). Build machines, master spellcraft, hunt legendary
+  bosses, and forge a path to the End with custom recipes, relics, and boss-driven goals.
+
+
+  Create automation, Easy Mob Farm, Create New Age, Mekanism, Ars Nouveau, and Cataclysm sit on the same progression
+  line. Farm boss essence, feed it into factories, and unlock the End through Mechanical Crafting rather than a
+  vanilla portal hunt. See [Cataclysm DeDust](/mods/cataclysm-dedust) for the Cataclysm food addon used alongside
+  the pack’s boss loop.
+accent: '#c47a3a'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/modpacks/final-adventure-machines
+curseforgeProjectId: 1540731
+requirements:
+  - 'CurseForge App or a NeoForge 1.21.1 instance'
+relatedMods:
+  - cataclysm-dedust
+icon: sc-final-adventure-machines.png
+order: 3

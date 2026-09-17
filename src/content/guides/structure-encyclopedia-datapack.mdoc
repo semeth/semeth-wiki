@@ -1,0 +1,17 @@
+---
+title: Datapack entries
+pageSlug: datapack-entries
+mod: structure-encyclopedia
+section: config
+order: 2
+---
+
+Entries are ordinary datapack JSON. Anything under `data/<namespace>/structure_encyclopedia/*.json` is loaded on the server and synced to clients.
+
+The `structure` field must be the **exact** registry ID (from `/locate structure`), for example `minecraft:desert_pyramid` or `yourmod:cool_dungeon`.
+
+Required: `structure`, `icon` (item ID), `lore` and `description` (translation keys). Optional: `sort_order` (lower first), `mobs`, `loot_items`, `loot_tables`, `tags`.
+
+Pages are unique by structure ID — the book never shows two pages for the same structure. To override a shipped page, replace the same resource path (for example `data/structureencyclopedia/structure_encyclopedia/fortress.json`) in a datapack that loads after this mod.
+
+Optional display name: `"structureencyclopedia.name.yourmod.cool_dungeon": "Cool Dungeon"`. If missing, the client falls back to `structure.<namespace>.<path>`.

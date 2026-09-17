@@ -1,0 +1,22 @@
+name: Structure Encyclopedia
+tagline: Explore the world, unlock its ruins, and fill a leather-bound tome of discovery.
+description: >-
+  Structure Encyclopedia turns structure visits into encyclopedia pages — lore, description, mobs, and notable loot —
+  in a book-style GUI. Pages start locked (???). Stand inside a listed structure to unlock it, then open the book
+  anytime with K or the craftable item (Book + Compass + Amethyst Shard).
+
+
+  Vanilla coverage ships in the jar. Datapacks and other mods can add or replace entries with JSON under
+  data/<namespace>/structure_encyclopedia/ — no Java required.
+category: adventure
+accent: '#b8956a'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/structure-encyclopedia
+curseforgeProjectId: 1632663
+requirements:
+  - 'Minecraft 1.21.1 / NeoForge'
+relatedMods:
+  - adventure-engine
+icon: structure-encyclopedia.png

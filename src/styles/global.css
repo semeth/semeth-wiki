@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: Lato, "Microsoft Yahei", ui-sans-serif, sans-serif;
+  --font-sans: "Source Sans Pro", "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --color-obsidian: #0c0b10;
+  --color-ink: #12111a;
+  --color-surface: #1c1a26;
+  --color-raised: #252232;
+  --color-line: #322e40;
+  --color-parchment: #e8e0d4;
+  --color-muted: #9a9084;
+  --color-gold: #d4a54a;
+  --color-gold-soft: #f0d59a;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-obsidian);
+  color: var(--color-parchment);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-gold) 40%, transparent);
+  color: var(--color-parchment);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.prose-wiki {
+  max-width: 46rem;
+  color: color-mix(in srgb, var(--color-parchment) 92%, white);
+}
+
+.prose-wiki h2,
+.prose-wiki h3,
+.prose-wiki h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: white;
+  letter-spacing: 0.01em;
+}
+
+.prose-wiki h2 {
+  font-size: 1.75rem;
+  margin: 2rem 0 0.75rem;
+}
+
+.prose-wiki h3 {
+  font-size: 1.35rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.prose-wiki p,
+.prose-wiki ul,
+.prose-wiki ol {
+  margin: 0.85rem 0;
+  line-height: 1.7;
+}
+
+.prose-wiki ul {
+  list-style: disc;
+}
+
+.prose-wiki ol {
+  list-style: decimal;
+}
+
+.prose-wiki ul,
+.prose-wiki ol {
+  padding-left: 1.25rem;
+}
+
+.prose-wiki li + li {
+  margin-top: 0.35rem;
+}
+
+.prose-wiki a {
+  color: var(--color-gold-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose-wiki code,
+.prose-wiki pre {
+  font-size: 0.9em;
+  background: var(--color-ink);
+  border: 1px solid var(--color-line);
+  border-radius: 0.4rem;
+}
+
+.prose-wiki code {
+  padding: 0.1rem 0.35rem;
+}
+
+.prose-wiki pre {
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.prose-wiki pre code {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.prose-wiki blockquote {
+  border-left: 3px solid var(--color-gold);
+  margin: 1.25rem 0;
+  padding: 0.4rem 0 0.4rem 1rem;
+  color: var(--color-muted);
+}
+
+.changelog-html h2 {
+  font-size: 1.2rem;
+  margin-top: 0.35rem;
+}
+
+.changelog-html h3 {
+  font-size: 1.05rem;
+}
+
+.pagefind-ui {
+  --pagefind-ui-scale: 0.94;
+  --pagefind-ui-primary: #d4a54a;
+  --pagefind-ui-text: #e8e0d4;
+  --pagefind-ui-background: #1c1a26;
+  --pagefind-ui-border: #322e40;
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-font: var(--font-sans);
+}

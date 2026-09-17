@@ -1,0 +1,32 @@
+name: SC Final Adventure - Arcana
+tagline: A guided magic-and-combat pack whose advancements and bounty boards form one interconnected journey.
+description: >-
+  Final Adventure Arcana is a dark-fantasy adventure for Minecraft 1.21.1 (NeoForge). The world pulls you outward:
+  hunt, explore, complete contracts, slay bosses, and climb from apprentice spellcaster to legend.
+
+
+  There is no separate guidebook. Press L and open the Arcana tab — that chapter tree is the pack’s quest map. You
+  receive an Arcane Decree automatically; craft or find a Bounty Board, place the decree on it, and pick up your
+  first contract. Combat drops Treasure Bags, bounty turn-ins pay Jackpot Bags and Apotheosis Gem Dust, and bosses
+  drop mythic loot. Six bounty decrees unlock across five advancement chapters, from Arcane Foundations through Ars
+  Ascension.
+
+
+  Pair it with the wiki pages for [Spell Actionbar](/mods/spell-actionbar), [Spell Codex](/mods/spell-codex),
+  [Leylines](/mods/leylines), and [Spell Codex Ars Compat](/mods/spell-codex-ars-compat) if those mods are in your
+  instance.
+accent: '#9b6bff'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/modpacks/sc-final-adventure-arcana
+curseforgeProjectId: 1554440
+requirements:
+  - 'CurseForge App or a NeoForge 1.21.1 instance'
+relatedMods:
+  - spell-actionbar
+  - spell-codex
+  - leylines
+  - spell-codex-ars-compat
+icon: sc-final-adventure-arcana.png
+order: 2

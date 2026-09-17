@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { categoryLabels } from '../lib/site';
+import ModLogo from './ModLogo.astro';
+
+interface Props {
+  mods: CollectionEntry<'mods'>[];
+}
+
+const { mods } = Astro.props;
+---
+
+<ul class="mt-4 divide-y divide-line rounded-2xl border border-line bg-surface/60">
+  {
+    mods.map((mod) => (
+      <li>
+        <a href={`/mods/${mod.id}`} class="flex items-center gap-3 px-4 py-2.5 hover:bg-raised/50">
+          <ModLogo mod={mod} size="sm" />
+          <span class="min-w-0 truncate text-sm text-parchment">{mod.data.name}</span>
+          <span class="ml-auto shrink-0 text-xs text-muted">{categoryLabels[mod.data.category]}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

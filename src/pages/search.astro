@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { getMods, getModpacks, guideHref } from '../lib/content';
+
+const mods = await getMods();
+const modpacks = await getModpacks();
+const guides = await getCollection('guides');
+---
+
+<BaseLayout title="Search" description="Search Semeth Wiki guides and changelogs.">
+  <link slot="head" href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6" data-pagefind-ignore>
+    <p class="text-xs uppercase tracking-[0.28em] text-gold">Search</p>
+    <h1 class="mt-3 font-display text-5xl text-white">Find a guide</h1>
+    <p class="mt-4 text-muted">
+      Full-text search is indexed when the site is built. Use the lists below if Pagefind has not been generated yet.
+    </p>
+    <div id="search" class="mt-8"></div>
+
+    <h2 class="mt-14 font-display text-3xl text-white">Mods</h2>
+    <ul class="mt-4 space-y-2 text-sm">
+      {
+        mods.map((mod) => (
+          <li>
+            <a class="text-gold-soft hover:underline" href={`/mods/${mod.id}`}>
+              {mod.data.name}
+            </a>
+            <span class="text-muted"> — {mod.data.tagline}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <h2 class="mt-10 font-display text-3xl text-white">Modpacks</h2>
+    <ul class="mt-4 space-y-2 text-sm">
+      {
+        modpacks.map((pack) => (
+          <li>
+            <a class="text-gold-soft hover:underline" href={`/modpacks/${pack.id}`}>
+              {pack.data.name}
+            </a>
+            <span class="text-muted"> — {pack.data.tagline}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <h2 class="mt-10 font-display text-3xl text-white">Guides</h2>
+    <ul class="mt-4 space-y-2 text-sm text-muted">
+      {
+        guides.map((guide) => (
+          <li>
+            <a class="hover:text-gold-soft" href={guideHref(guide)}>
+              {guide.data.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+  <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.PagefindUI) {
+        new window.PagefindUI({ element: '#search', showSubResults: true, showImages: false });
+      }
+    });
+  </script>
+</BaseLayout>

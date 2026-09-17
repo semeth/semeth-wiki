@@ -1,0 +1,25 @@
+---
+import { site } from '../lib/site';
+---
+
+<footer class="mt-20 border-t border-line" data-pagefind-ignore>
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <p>
+      {site.name} · guides by {site.author}
+    </p>
+    <div class="flex flex-wrap gap-4">
+      <a class="hover:text-gold-soft" href="/about">About</a>
+      <a class="hover:text-gold-soft" href="/updates">Updates</a>
+      <a class="hover:text-gold-soft" href={site.curseforgeAuthor} target="_blank" rel="noreferrer">
+        CurseForge
+      </a>
+      {
+        import.meta.env.DEV && (
+          <a class="hover:text-gold-soft" href="/keystatic">
+            CMS
+          </a>
+        )
+      }
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,23 @@
+name: Adventure Engine
+tagline: Structures generate adventures. Accept the mission, finish it for loot, or walk away.
+description: >-
+  An adventure opportunity appears when you get near a structure. Accept it or don’t. If you take it, the site starts
+  the objective (spawns, marks, planted items — whatever the template says). If you don’t, it goes quiet for a while
+  and you can come back later.
+
+
+  Built-in sites cover vanilla structures from outposts to ancient cities. Pack authors add more with datapack JSON:
+  a target file says which structure can offer work and points at weighted polls for rank, quest, reward, and revenge.
+category: adventure
+accent: '#c9a227'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/adventure-engine
+curseforgeProjectId: 1665805
+requirements:
+  - 'Minecraft 1.21.1 / NeoForge'
+relatedMods:
+  - structure-encyclopedia
+  - eventmaker
+icon: adventure-engine.png

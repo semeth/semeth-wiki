@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDownloads } from '../lib/format';
+
+interface Props {
+  mod: CollectionEntry<'mods'> | CollectionEntry<'modpacks'>;
+  downloads?: number | null;
+}
+
+const { mod, downloads = null } = Astro.props;
+const countLabel = downloads != null ? `${formatDownloads(downloads)} downloads` : null;
+---
+
+<a
+  href={mod.data.curseforgeUrl}
+  target="_blank"
+  rel="noreferrer"
+  class="inline-flex items-center gap-3 rounded-full bg-gold px-4 py-2 text-sm font-semibold text-obsidian transition hover:bg-gold-soft"
+>
+  <span>View on CurseForge</span>
+  {countLabel && <span class="rounded-full bg-obsidian/15 px-2 py-0.5 text-xs font-medium">{countLabel}</span>}
+</a>

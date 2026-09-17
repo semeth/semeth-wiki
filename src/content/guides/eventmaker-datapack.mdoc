@@ -1,0 +1,21 @@
+---
+title: Datapack events
+pageSlug: datapack-events
+mod: eventmaker
+section: config
+order: 2
+---
+
+Each event variation supports:
+
+- `commands_poll` (required)
+- `activation`: `walk_through`, `touch`, `stepped_on`
+- `persistent`: one-shot or repeatable
+- `command_location`: `free` or `event_location`
+- `command_location_range`: local scope radius (default 32)
+
+**free:** command source is the triggering player.
+
+**event_location:** the poll executes once per matching location marker in range, with source positioned above each location block.
+
+If you duplicate a room layout and reuse the same IDs, range keeps each activation local. One-shot consumption and trigger cleanup apply to the local instance only.

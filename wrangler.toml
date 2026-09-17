@@ -1,0 +1,9 @@
+# Cloudflare Pages
+# Build command: npm run build
+# Output directory: dist
+# Environment: CURSEFORGE_API_KEY (secret)
+#
+# Optional later: wrangler pages deploy dist
+name = "semeth-wiki"
+compatibility_date = "2026-09-18"
+pages_build_output_dir = "dist"

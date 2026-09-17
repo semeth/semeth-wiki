@@ -1,0 +1,25 @@
+name: TikFiniTok
+tagline: Connect TikFinity to NeoForge singleplayer so LIVE gifts can run Minecraft commands — no Paper server required.
+description: >-
+  TikfiniTok bridges TikFinity and NeoForge singleplayer. It starts a small local web server while you play, so
+  TikFinity (or any ServerTap-compatible tool) can send Minecraft commands when viewers interact on your TikTok
+  LIVE stream.
+
+
+  No Bukkit, Paper, or dedicated server setup — just NeoForge, a singleplayer world, and TikFinity. The API only
+  runs while the world is loaded. Dedicated servers are not supported.
+category: streaming
+accent: '#f472b6'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1–1.21.11'
+  - '26.1.2'
+  - '26.2'
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/tikfinitok
+curseforgeProjectId: 1596065
+requirements:
+  - 'NeoForge matching your Minecraft version'
+  - 'Integrated server (singleplayer / LAN host)'
+  - 'TikFinity or another ServerTap-compatible client'
+relatedMods: []
+icon: tikfinitok.png

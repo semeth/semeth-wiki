@@ -1,0 +1,22 @@
+name: SC Final Adventure
+tagline: Challenge bosses, grind for god-tier gear, and dive into a brutal endgame gateway bossrush.
+description: >-
+  SC Final Adventure is a progression-heavy exploration pack for Minecraft 1.21.1 (NeoForge). You carve out safety
+  in a hostile world packed with structures, then push into harder dimensions, stronger enemies, and custom gateway
+  boss fights.
+
+
+  Expect hybrid spell-and-melee combat (Iron’s Spellbooks, Cataclysm, and more), world-tier gear scaling, and an
+  FTB Quests line that covers challenge chapters and completion goals. Discover, progress, conquer, then master
+  enchants, gems, spells, and endgame loops. High replay value from structure placement, boss order, and build paths.
+accent: '#d4a54a'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/modpacks/sc-final-adventure
+curseforgeProjectId: 1513970
+requirements:
+  - 'CurseForge App or a NeoForge 1.21.1 instance'
+relatedMods: []
+icon: sc-final-adventure.png
+order: 1

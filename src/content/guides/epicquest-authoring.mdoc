@@ -1,0 +1,29 @@
+---
+title: Authoring dungeons
+pageSlug: authoring-dungeons
+mod: epicquest-dungeoning
+section: config
+order: 2
+---
+
+Pack layout:
+
+```
+config/epicquest_dungeoning/
+  dungeons.json
+  images/          optional preview PNGs
+  dungeons/<dungeon_id>/
+    structures/<namespace>/.../*.nbt
+    worldgen/template_pool/<namespace>/*.json
+```
+
+Register each dungeon in `dungeons.json` with a required `jigsaw` object (`start_pool`, `start_jigsaw_name`, `size`, `max_distance_from_center`, `fallback_pool`, optional `unique_templates`).
+
+Building pieces:
+
+- Structure Block **SAVE** mirrors into the pack under `config/.../structures/`.
+- Put a **Dungeon Player Spawn** in the start/anchor piece.
+- Put a **Dungeon End Pad** only if you use `reach_end` completion.
+- Keep at least one small dead-end in `fallback_pool`.
+
+Completion types: `kill_entity`, `collect_items`, or `reach_end`. Omit `completion` to disable auto-triggers; the return button, API, and `/dungeon complete` still extract.

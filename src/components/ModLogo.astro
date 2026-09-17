@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { modIconSrc, type ProjectKind } from '../lib/content';
+
+interface Props {
+  mod: CollectionEntry<'mods'> | CollectionEntry<'modpacks'>;
+  size?: 'sm' | 'md' | 'lg';
+  kind?: ProjectKind;
+}
+
+const sizes = {
+  sm: 'h-8 w-8',
+  md: 'h-12 w-12',
+  lg: 'h-20 w-20',
+} as const;
+
+const { mod, size = 'md', kind = 'mod' } = Astro.props;
+const src = modIconSrc(mod, kind);
+const box = sizes[size];
+---
+
+{
+  src ? (
+    <img
+      src={src}
+      alt={`${mod.data.name} logo`}
+      class={`${box} rounded-xl object-cover ring-1 ring-white/10`}
+    />
+  ) : (
+    <div
+      class={`${box} flex items-center justify-center rounded-xl font-display text-xl font-semibold text-obsidian`}
+      style={`background: ${mod.data.accent}`}
+    >
+      {mod.data.name.slice(0, 1)}
+    </div>
+  )
+}

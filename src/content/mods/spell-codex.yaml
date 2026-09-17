@@ -1,0 +1,25 @@
+name: Spell Codex
+tagline: Turn Iron’s spell list into a progression Codex, then cast only what you have earned from the Actionbar.
+description: >-
+  Spell Codex is a progression addon for Iron’s Spells ’n Spellbooks. Spells are discovered into a Codex, unlocked
+  tier by tier with XP and ink, then equipped on Spell Actionbar. You cast only what you have earned — from Iron’s
+  base schools and compatible school addons such as Leylines.
+
+
+  Requires Iron’s Spells ’n Spellbooks and Spell Actionbar 1.1.4 or newer. Casting is actionbar-only: Iron’s wheel,
+  books, inventory scrolls, and imbued weapons cannot cast for players once Codex is in control.
+category: magic
+accent: '#8b6cff'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/spell-codex-irons-spells-n-spellbooks-addon
+curseforgeProjectId: 1623374
+requirements:
+  - 'Iron’s Spells ’n Spellbooks'
+  - 'Spell Actionbar 1.1.4+'
+relatedMods:
+  - spell-actionbar
+  - leylines
+  - spell-codex-ars-compat
+icon: spell-codex.png

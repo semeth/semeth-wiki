@@ -1,0 +1,25 @@
+name: SpellActionbar
+tagline: A scroll action bar for Iron’s Spells ’n Spellbooks — equip, hotkey, and never consume scrolls.
+description: >-
+  Spell Actionbar adds a dedicated spell bar above your hotbar. Equip Iron’s scrolls, cast with quick-cast keys,
+  and read icons, cooldowns, mana, and keybind labels at a glance. Scrolls on the bar are never consumed.
+
+
+  With no Curios spellbook equipped the bar has three slots. An equipped book grows the bar to that book’s
+  capacity. Packed book spells lock into the leading slots; the rest are yours for player scrolls.
+category: magic
+accent: '#d4a54a'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/spellactionbar
+curseforgeProjectId: 1582046
+requirements:
+  - 'Minecraft 1.21.1 / NeoForge'
+  - 'Iron’s Spells ’n Spellbooks + Iron’s Lib'
+  - 'Curios (pulled in by Iron’s)'
+relatedMods:
+  - spell-codex
+  - leylines
+  - spell-codex-ars-compat
+icon: spell-actionbar.png

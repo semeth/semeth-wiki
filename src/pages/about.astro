@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout title="About" description={`About ${site.name} and ${site.author}.`}>
+  <article class="prose-wiki mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <p class="text-xs uppercase tracking-[0.28em] text-gold">About</p>
+    <h1 class="mt-3 font-display text-5xl text-white">Semeth’s mod wiki</h1>
+    <p>
+      This site is the guide hub for mods and modpacks by <strong>{site.author}</strong>. Each project has an
+      overview, how-to pages, and a versioned changelog. Downloads stay on CurseForge — the wiki explains how the
+      pieces fit together.
+    </p>
+    <p>
+      The magic family is built around Iron’s Spells ’n Spellbooks: SpellActionbar is the cast HUD, Spell Codex is
+      the progression layer, Leylines adds a school, and the Ars Nouveau compat turns caster tomes into Codex cards.
+      Adventure Engine, Structure Encyclopedia, and BassSanctum are world/adventure tools. EpicQuest Hub, EpicQuest
+      Dungeoning, and EventMaker are pack-author kits. Cataclysm DeDust is a Cataclysm food addon. TikFiniTok connects
+      TikTok LIVE gifts to a NeoForge singleplayer world. The SC Final Adventure family is documented separately:
+      the original bossrush pack, Arcana, Machines, and Mechanical Genesis.
+    </p>
+    <p>
+      Edit pages in the browser while developing at <code>/keystatic</code>. Content lives in this repo so changelogs
+      stay versioned with the site.
+    </p>
+    <p>
+      <a href={site.curseforgeAuthor} target="_blank" rel="noreferrer">All projects on CurseForge</a>
+    </p>
+  </article>
+</BaseLayout>

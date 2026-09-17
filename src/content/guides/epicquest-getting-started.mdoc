@@ -1,0 +1,18 @@
+---
+title: Getting started
+pageSlug: getting-started
+mod: epicquest-dungeoning
+section: getting-started
+order: 1
+---
+
+EpicQuest Dungeoning is for pack authors on NeoForge 1.21.1. Players attune a dungeon key, insert it into a **Dungeon Keystone**, and enter a generated jigsaw instance in a void dimension.
+
+Player loop:
+
+1. Attune an unbound key on an anvil with the dungeon’s `attunement_item`.
+2. Insert the key into a keystone. The mod generates the instance, fills leftover connectors with dead-ends, and places unique templates (for example a boss) in a late depth band.
+3. Portal entry teleports to a **Dungeon Player Spawn** block in your pieces.
+4. Completion or return starts a **10s group extract**, then **wipes** that dungeon until the next activation.
+
+[EventMaker](/mods/eventmaker) is strongly recommended so you can author invisible triggers inside jigsaw pieces.

@@ -1,0 +1,26 @@
+name: EpicQuest Hub
+tagline: New worlds become a void overworld with your own spawn hub pasted from a schematic.
+description: >-
+  Epic Quest Hub turns a brand-new Minecraft world into a void overworld with your custom spawn hub. Drop in a
+  WorldEdit .schem (Sponge v1/v2/v3) or a structure-block .nbt, set paste and spawn coordinates, and the mod handles
+  the rest on first world load.
+
+
+  Players spawn at your exact coordinates on login, respawn, and world creation — no random offset. Optional
+  protection stops hub blocks from being broken, placed, or exploded. Placement runs once per world and is saved so
+  it does not repeat on reload. No bundled schematic is included — you bring your own hub.
+category: packs
+accent: '#6b8cae'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/epicquesthub
+curseforgeProjectId: 1581677
+requirements:
+  - 'Minecraft 1.21.1'
+  - 'NeoForge 21.1.x'
+  - 'A .schem or .nbt hub file in config/epicquest_hub/'
+relatedMods:
+  - epicquest-dungeoning
+  - eventmaker
+icon: epicquest-hub.png

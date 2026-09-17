@@ -1,0 +1,25 @@
+name: Leylines
+tagline: Attune to underground ley currents — a new school of portals, time, and rifts for Iron’s Spellbooks.
+description: >-
+  Leyline Spellbooks adds the Leyline school to Iron’s Spells ’n Spellbooks. Beneath the world run invisible rivers
+  of arcane power. Where they surge, pillars of violet light tear through the night — and those who learn to listen
+  can bend time, tear open portals, and rip the ground itself apart.
+
+
+  At night, leyline pillars may appear in the distance. Charge them to open a Leyline Rift: a wave encounter that
+  rewards theme loot, experience, and a chance at the rare Ley Crystal. Craft the Leyline Codex and Ley Staff to
+  start weaving the lattice into your kit.
+category: magic
+accent: '#c084fc'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/leylines-irons-spells-n-spellbooks-addon
+curseforgeProjectId: 1636676
+requirements:
+  - 'Iron’s Spells ’n Spellbooks'
+  - 'NeoForge'
+relatedMods:
+  - spell-actionbar
+  - spell-codex
+icon: leylines.png

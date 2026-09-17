@@ -1,0 +1,77 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ModNav from '../../../components/ModNav.astro';
+import { getModpackGuide, getGuidesForModpack, getModpacks } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const packs = await getModpacks();
+  const paths = [];
+  for (const pack of packs) {
+    const guides = await getGuidesForModpack(pack.id);
+    for (const guide of guides) {
+      paths.push({
+        params: { slug: pack.id, page: guide.data.pageSlug },
+      });
+    }
+  }
+  return paths;
+}
+
+const { slug, page } = Astro.params;
+const packs = await getModpacks();
+const pack = packs.find((entry) => entry.id === slug);
+if (!pack || !page) {
+  return Astro.redirect('/');
+}
+
+const guides = await getGuidesForModpack(pack.id);
+const guide = await getModpackGuide(pack.id, page);
+if (!guide) {
+  return Astro.redirect(`/modpacks/${pack.id}`);
+}
+
+const { Content } = await render(guide);
+const index = guides.findIndex((entry) => entry.id === guide.id);
+const prev = index > 0 ? guides[index - 1] : undefined;
+const next = index >= 0 && index < guides.length - 1 ? guides[index + 1] : undefined;
+---
+
+<BaseLayout title={`${guide.data.title} · ${pack.data.name}`} description={pack.data.tagline} accent={pack.data.accent}>
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[16rem_minmax(0,1fr)] sm:px-6">
+    <ModNav mod={pack} guides={guides} current={guide.data.pageSlug} kind="modpack" />
+    <article>
+      <p class="text-xs uppercase tracking-[0.28em] text-gold">
+        <a href={`/modpacks/${pack.id}`} class="hover:text-gold-soft">{pack.data.name}</a>
+      </p>
+      <h1 class="mt-3 font-display text-5xl text-white">{guide.data.title}</h1>
+      <div class="prose-wiki mt-8">
+        <Content />
+      </div>
+      <nav class="mt-12 flex justify-between gap-4 border-t border-line pt-6 text-sm">
+        {
+          prev ? (
+            <a class="text-gold hover:text-gold-soft" href={`/modpacks/${pack.id}/${prev.data.pageSlug}`}>
+              ← {prev.data.title}
+            </a>
+          ) : (
+            <a class="text-muted hover:text-gold-soft" href={`/modpacks/${pack.id}`}>
+              ← Overview
+            </a>
+          )
+        }
+        {
+          next ? (
+            <a class="text-gold hover:text-gold-soft" href={`/modpacks/${pack.id}/${next.data.pageSlug}`}>
+              {next.data.title} →
+            </a>
+          ) : (
+            <a class="text-gold hover:text-gold-soft" href={`/modpacks/${pack.id}/changelog`}>
+              Changelog →
+            </a>
+          )
+        }
+      </nav>
+    </article>
+  </div>
+</BaseLayout>

@@ -1,0 +1,71 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { sectionLabels } from '../lib/site';
+import type { ProjectKind } from '../lib/content';
+
+interface Props {
+  mod: CollectionEntry<'mods'> | CollectionEntry<'modpacks'>;
+  guides: CollectionEntry<'guides'>[];
+  current?: string;
+  kind?: ProjectKind;
+}
+
+const { mod, guides, current, kind = 'mod' } = Astro.props;
+const base = kind === 'modpack' ? `/modpacks/${mod.id}` : `/mods/${mod.id}`;
+const navLabel = kind === 'modpack' ? 'In this pack' : 'In this mod';
+const grouped = (Object.keys(sectionLabels) as Array<keyof typeof sectionLabels>)
+  .map((section) => ({
+    section,
+    label: sectionLabels[section],
+    pages: guides.filter((guide) => guide.data.section === section),
+  }))
+  .filter((group) => group.pages.length > 0);
+---
+
+<aside class="lg:sticky lg:top-24">
+  <p class="mb-3 text-xs uppercase tracking-[0.2em] text-muted">{navLabel}</p>
+  <nav class="space-y-4 text-sm">
+    <a
+      href={base}
+      class:list={[
+        'block rounded-lg px-3 py-1.5',
+        current === 'overview' ? 'bg-raised text-gold-soft' : 'text-parchment/80 hover:text-gold-soft',
+      ]}
+    >
+      Overview
+    </a>
+    {
+      grouped.map((group) => (
+        <div>
+          <p class="mb-1 px-3 text-xs uppercase tracking-wider text-muted">{group.label}</p>
+          <ul class="space-y-1">
+            {group.pages.map((page) => (
+              <li>
+                <a
+                  href={`${base}/${page.data.pageSlug}`}
+                  class:list={[
+                    'block rounded-lg px-3 py-1.5',
+                    current === page.data.pageSlug
+                      ? 'bg-raised text-gold-soft'
+                      : 'text-parchment/80 hover:text-gold-soft',
+                  ]}
+                >
+                  {page.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+    <a
+      href={`${base}/changelog`}
+      class:list={[
+        'block rounded-lg px-3 py-1.5',
+        current === 'changelog' ? 'bg-raised text-gold-soft' : 'text-parchment/80 hover:text-gold-soft',
+      ]}
+    >
+      Changelog
+    </a>
+  </nav>
+</aside>

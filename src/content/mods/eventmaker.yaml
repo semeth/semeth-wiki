@@ -1,0 +1,24 @@
+name: EventMaker
+tagline: Invisible triggers for packs — datapack command polls, shared IDs, creative-only visibility.
+description: >-
+  Event Maker is an event-authoring toolkit for modpacks and adventure maps. Build invisible trigger networks, bind
+  them to command polls, and execute effects at the player or at dedicated world locations.
+
+
+  Markers are invisible and untargetable in Survival. Creative builders still get colored wireframe overlays.
+  Range-scoped instances let you reuse the same IDs in nearby rooms without cross-triggering.
+category: packs
+accent: '#2dd4bf'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/eventmaker
+curseforgeProjectId: 1617353
+requirements:
+  - 'NeoForge 1.21.1'
+  - 'Datapack or KubeJS command polls'
+relatedMods:
+  - epicquest-dungeoning
+  - epicquest-hub
+  - adventure-engine
+icon: eventmaker.png

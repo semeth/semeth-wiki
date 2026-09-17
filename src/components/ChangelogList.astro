@@ -1,0 +1,58 @@
+---
+import type { CurseForgeRelease } from '../lib/curseforge';
+import { formatDate } from '../lib/format';
+
+interface Props {
+  releases: CurseForgeRelease[];
+  curseforgeUrl?: string;
+}
+
+const { releases, curseforgeUrl } = Astro.props;
+const channelLabel = {
+  release: '',
+  beta: 'Beta',
+  alpha: 'Alpha',
+} as const;
+---
+
+{
+  releases.length === 0 ? (
+    <p class="mt-10 text-muted">No CurseForge files were returned for this project.</p>
+  ) : (
+    <ol class="mt-10 space-y-8">
+      {releases.map((entry) => (
+        <li class="rounded-2xl border border-line bg-surface/70 p-5">
+          <div class="flex flex-wrap items-baseline justify-between gap-3">
+            <h2 class="font-display text-3xl text-white">{entry.version}</h2>
+            <time class="text-xs text-muted" datetime={entry.date.toISOString()}>
+              {formatDate(entry.date)}
+            </time>
+          </div>
+          {channelLabel[entry.releaseType] && (
+            <p class="mt-2 text-xs uppercase tracking-wider text-amber-400">{channelLabel[entry.releaseType]}</p>
+          )}
+          {entry.minecraftVersions.length > 0 && (
+            <p class="mt-2 text-xs text-muted">MC {entry.minecraftVersions.join(', ')}</p>
+          )}
+          {entry.html ? (
+            <div class="prose-wiki changelog-html mt-4" set:html={entry.html} />
+          ) : (
+            <p class="mt-4 text-sm text-muted">No changelog notes on this CurseForge file.</p>
+          )}
+          {curseforgeUrl && (
+            <p class="mt-4 text-xs">
+              <a
+                class="text-gold hover:text-gold-soft"
+                href={`${curseforgeUrl}/files/${entry.fileId}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                File on CurseForge
+              </a>
+            </p>
+          )}
+        </li>
+      ))}
+    </ol>
+  )
+}

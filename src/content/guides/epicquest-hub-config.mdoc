@@ -1,0 +1,21 @@
+---
+title: Configuration
+pageSlug: configuration
+mod: epicquest-hub
+section: config
+order: 2
+---
+
+All settings live in `config/epicquest_hub-common.toml` (created on first launch):
+
+- `structureFile` — path to `.schem` or `.nbt` (default `config/epicquest_hub/hub.schem`)
+- `pasteX` / `pasteY` / `pasteZ` — where the structure is pasted (default `0`, `-60`, `0`)
+- `spawnX` / `spawnY` / `spawnZ` — where players spawn (default `0`, `64`, `0`)
+- `spawnAngle` — facing: `0` south, `90` west, `180` north, `-90` east
+- `protectStructure` — when `true`, hub blocks cannot be broken, placed, or exploded (default `true`)
+
+Tips:
+
+- Set `pasteY` to the bottom of your structure in void worlds — `-60` is a common start.
+- Set spawn to a safe standing position **inside** the hub; it can differ from the paste origin.
+- WorldEdit Sponge `.schem` v1/v2/v3 and structure-block `.nbt` are both valid. No schematic is bundled.

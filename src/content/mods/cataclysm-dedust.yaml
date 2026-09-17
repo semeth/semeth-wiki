@@ -1,0 +1,24 @@
+name: Cataclysm DeDust
+tagline: Edible boss dust from Cataclysm bosses — eat for effects, overcharge for extra hearts.
+description: >-
+  DeDust is an addon for L_Ender’s Cataclysm. When you kill a Cataclysm boss, it drops dust themed to that boss.
+  Eat it for potion-like effects — regeneration, strength, fire resistance, and more depending on the boss. Dust
+  can be eaten even at full hunger.
+
+
+  All 8 bosses are covered: Maledictus, Ancient Remnant, Ender Guardian, Scylla, Netherite Monstrosity, Ignis,
+  The Leviathan, and The Harbinger. Overcharged variants (creative tab for now) give stronger buffs; the first time
+  you eat each one you gain +1 permanent max heart, up to 8 total.
+category: addons
+accent: '#c23b22'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/cataclysm-dedust
+curseforgeProjectId: 1575776
+requirements:
+  - 'Minecraft 1.21.1'
+  - 'NeoForge'
+  - 'L_Ender’s Cataclysm 3.0+'
+relatedMods: []
+icon: cataclysm-dedust.png

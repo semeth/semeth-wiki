@@ -1,0 +1,21 @@
+name: BassSanctum
+tagline: A custom dimension with a generated structure and a configurable altar item.
+description: >-
+  BassSanctum adds a custom dimension. A structure generates with an altar in the middle. The item sitting on that
+  altar is whatever you declare in the config — often a boss summon in a pack, but it can be any item.
+
+
+  To enter the dimension, right-click the block you set in config. Built as a pack-author hook rather than a full
+  content mod: you choose the portal block and the altar reward, then send players in to retrieve it.
+category: adventure
+accent: '#4a6fa5'
+loader: NeoForge
+minecraftVersions:
+  - '1.21.1'
+curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/basssanctum
+curseforgeProjectId: 1574268
+requirements:
+  - 'Minecraft 1.21.1 / NeoForge'
+relatedMods:
+  - epicquest-hub
+icon: bass-sanctum.png
