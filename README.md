@@ -21,17 +21,17 @@ npm run preview
 
 `build` runs Pagefind over `dist` so `/search` gets full-text results.
 
-## Cloudflare Pages (`semeth.wiki`)
+## Cloudflare (`semeth.wiki`)
 
-1. Push this repo to GitHub.
-2. In Cloudflare Pages, create a project from that repo.
-3. Build command: `npm run build`
-4. Output directory: `dist`
-5. Node version: `22` (see `package.json` engines).
-6. Optional env var `CURSEFORGE_API_KEY` (secret) so production uses the official CurseForge API. Without it, counts and changelogs still load via a public proxy.
-7. Attach the `semeth.wiki` custom domain in Pages → Custom domains.
+The current Cloudflare dashboard creates a **Worker** from Git (no output-directory field). `wrangler.toml` tells Wrangler to publish `dist`.
 
-Counts refresh whenever Pages rebuilds. Add a daily Cron Trigger that hits the deploy hook if you want counts without content edits.
+1. **Create application** → import `semeth/semeth-wiki`.
+2. Build command: `npm run build`
+3. Deploy command: `npx wrangler deploy`
+4. Advanced: `NODE_VERSION` = `22`
+5. After it is live, attach `semeth.wiki` under Custom domains.
+
+Counts and changelogs refresh on each rebuild. Add a daily Cron Trigger that hits the deploy hook if you want counts without content edits.
 
 ## Keystatic on the live site (GitHub mode)
 

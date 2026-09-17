@@ -1,9 +1,9 @@
-# Cloudflare Pages
-# Build command: npm run build
-# Output directory: dist
-# Environment: CURSEFORGE_API_KEY (secret)
-#
-# Optional later: wrangler pages deploy dist
+# Cloudflare Workers (static assets)
+# Dashboard: Build command `npm run build`, Deploy command `npx wrangler deploy`
 name = "semeth-wiki"
 compatibility_date = "2026-09-18"
-pages_build_output_dir = "dist"
+
+[assets]
+directory = "./dist"
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"
