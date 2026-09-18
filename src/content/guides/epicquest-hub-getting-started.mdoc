@@ -6,12 +6,14 @@ section: getting-started
 order: 1
 ---
 
-EpicQuest Hub only pastes on a **new world**. Coordinate changes after a world already exists will not move an existing hub.
+Hub only pastes on a **new world**. If you already created the world, changing coordinates will not move anything. Delete the world or start another.
 
-1. Install the mod and put your hub file in `config/epicquest_hub/` (`.schem` or `.nbt`).
-2. Edit `config/epicquest_hub-common.toml` to point at that file and set paste/spawn coordinates.
-3. Create a **new world**. The overworld generates as void — no terrain, no vanilla spawn platform.
-4. On first server start the mod pastes the structure, sets world spawn, and records hub bounds for protection.
-5. Players joining or respawning in the overworld (without a personal bed spawn) land at your configured spawn.
+1. Put a `.schem` or `.nbt` in `config/epicquest_hub/`.
+2. Point `epicquest_hub-common.toml` at that file. Set paste and spawn.
+3. Create a new world. The overworld is void. No dirt, no vanilla platform.
+4. First start pastes the hub, sets world spawn, and remembers the bounds for protection.
+5. Anyone who joins, or respawns in the overworld without a bed, lands on your spawn.
 
-Works in single-player and on dedicated servers. Placement is saved so it does not run again on reload. Pair it with [EpicQuest Dungeoning](/mods/epicquest-dungeoning) if the hub is the lobby for keyed dungeon portals.
+Works singleplayer and on a dedicated server. It will not paste a second time after a reload.
+
+This is the lobby. Put [EpicQuest Dungeoning](/mods/epicquest-dungeoning) keystones in the schematic if the hub is where people pick a dungeon. Put a [BassSanctum](/mods/bass-sanctum) portal block if that dimension is a side room.

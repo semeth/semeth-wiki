@@ -6,16 +6,17 @@ section: config
 order: 2
 ---
 
-Each event variation supports:
+An event file is small. It needs a `commands_poll`. Everything else is flavor.
 
-- `commands_poll` (required)
 - `activation`: `walk_through`, `touch`, `stepped_on`
-- `persistent`: one-shot or repeatable
-- `command_location`: `free` or `event_location`
-- `command_location_range`: local scope radius (default 32)
+- `persistent`: one-shot or it can fire again
+- `command_location`: `free` (the player) or `event_location` (your orange markers)
+- `command_location_range`: how far to look for those markers (default 32)
 
-**free:** command source is the triggering player.
+**free** is “run this as the player who tripped it.” Good for a tellraw, a title, giving an item.
 
-**event_location:** the poll executes once per matching location marker in range, with source positioned above each location block.
+**event_location** is “run this once per matching orange marker in range, standing on that block.” Good for filling a cauldron, opening a door two blocks away, summoning a mob in the pit, not on the player’s head.
 
-If you duplicate a room layout and reuse the same IDs, range keeps each activation local. One-shot consumption and trigger cleanup apply to the local instance only.
+If you stamp the same corridor six times and reuse the ids, **range** keeps each copy local. A one-shot in room A does not eat room B.
+
+A first event people actually ship: walk through a tripwire-looking air block, play a sound, `setblock` a barrier out of the way. Poll has one command. Event is `walk_through`, one-shot, `free` or `event_location` depending on where the door sits.

@@ -6,7 +6,9 @@ section: config
 order: 3
 ---
 
-Content is datapack JSON. A **target** file says “this structure can offer work” and points at four polls: rank, quest, reward, revenge. Polls are weighted lists. Quest templates are the actual objective.
+You do not write Java. You write JSON.
+
+A **target** file says “this structure can offer work” and points at four polls: rank, quest, reward, revenge. Polls are weighted lists. Quest templates are the actual jobs.
 
 ```
 data/<your_namespace>/adventure_engine/
@@ -16,12 +18,14 @@ data/<your_namespace>/adventure_engine/
   polls/revenge/
 ```
 
-Works as a normal datapack, as `kubejs/data/...`, or as files under `config/adventure_engine/` (that last one overrides the jar). `/adventure reload` picks up the overlay.
+That folder can live in a normal datapack, in `kubejs/data/...`, or under `config/adventure_engine/`. The config copy wins if the same file exists in the jar. `/adventure reload` rereads the overlay.
 
-Hook any structure id or structure tag, including other mods. Easiest start is copy a target from the jar and change the structure list + poll ids.
+Easiest start: copy a target from the jar, change the structure list, keep `adventure_engine:standard_rewards` until you care about loot. Hook any structure id or tag, including other mods.
 
-On quest poll entries, `role` is `primary`, `side`, or `any`. `rank_min` / `rank_max` use Scout=1 … Legend=5. Rank polls can require distance from the box center (`min_distance` / `max_distance`).
+On quest poll entries, `role` is `primary`, `side`, or `any`. `rank_min` / `rank_max` use Scout=1 through Legend=5. Rank polls can also require distance from the box center, so a Champion job does not roll on a hut you are standing in the doorway of.
 
-`item_bands` on find and sacrifice use those same 1–5 keys. The game rolls **one** item from the list for that rank. Find puts a marked stack in a chest (or drops it glowing). Sacrifice does not plant anything; toss any item from the band.
+`item_bands` on find and sacrifice use those same 1–5 keys. The game rolls **one** item from the list. Find plants a marked stack in a chest (or drops it glowing). Sacrifice does not plant anything. The player has to bring the item.
 
-Reuse `adventure_engine:standard_rewards` if you do not want to write loot. Vanilla XP is `minecraft_xp` on the rank file.
+Vanilla XP is `minecraft_xp` on the rank file. Leave the reward poll on `standard_rewards` until you have a reason not to.
+
+Example of a pack hook: you have a custom dungeon `mypack:quartz_keep`. Copy the outpost target, point `structures` at that id, write one kill-leader template, and ship it. Players walk in, get a plaque, and the keep is now a job instead of an empty build.

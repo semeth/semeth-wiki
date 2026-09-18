@@ -6,9 +6,10 @@ section: faq
 order: 3
 ---
 
-- Dedicated servers are **not** supported. Use the integrated server (singleplayer or LAN host).
-- The world must be open and loaded or commands will not run.
-- Commands execute on the integrated server thread.
-- Download the JAR that matches your Minecraft version. Mixing versions will not load.
+Dedicated servers are out. Use the world you opened from the title screen, or open it to LAN.
 
-If TikFinity cannot connect, confirm port `4567` (or your toml override), cheats enabled, and that the in-game name matches the TikFinity username field.
+The world has to stay loaded. If you quit to menu, gifts queue in TikFinity and nothing happens in Minecraft.
+
+Commands run on the integrated server thread. A command that locks the server locks your game.
+
+If TikFinity cannot connect: world open, cheats on, port 4567 (or whatever you set), name spelled the same in both places. Windows firewall likes to eat 4567 the first time.

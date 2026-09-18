@@ -6,10 +6,14 @@ section: faq
 order: 4
 ---
 
-**Are scrolls consumed?** No. Casting from the action bar never eats the scroll.
+**Do scrolls get consumed?** No. Casting from the bar never eats the scroll.
 
-**Can other mods open the equip UI?** Yes. Addons can open a custom equip UI via `SpellActionbarMenuOpeners`. Cast gating helpers (`ActionbarCastGate`) exist for addons such as Specs.
+**Where did Iron’s spell bar go?** Actionbar hides it. You would otherwise have two HUDs fighting for the same strip of screen.
 
-**Why is Iron’s own spell bar gone?** Actionbar hides it on purpose so icons and mana do not double up.
+**Can I still use Iron’s wheel?** Not as your main cast if Codex is in the pack. Without Codex, Actionbar is just a nicer bar. With Codex, the bar is the only legal cast.
 
-**Does this work with Leylines?** Yes. Leyline spells are Iron’s school spells. Equip their scrolls (or unlock them through Codex) onto the same bar.
+**Does Leylines work?** Yes. Leyline spells are Iron’s school spells. Put their scrolls on the bar, or unlock them through Codex.
+
+**A block-target spell keeps saying “Target a block.”** Look at the block. Apprentice’s Codex spells like Rift Hole need a real client target. That was fixed in Actionbar 1.1.5. Update if you are on an older jar.
+
+**Can another mod open the equip screen?** Yes. Addons can hook `SpellActionbarMenuOpeners`. Codex already does this so one key opens both the Codex and the bar.

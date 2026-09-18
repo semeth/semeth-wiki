@@ -6,12 +6,14 @@ section: config
 order: 2
 ---
 
-Entries are ordinary datapack JSON. Anything under `data/<namespace>/structure_encyclopedia/*.json` is loaded on the server and synced to clients.
+Entries are ordinary datapack JSON under `data/<namespace>/structure_encyclopedia/*.json`. The server loads them and syncs the book to clients.
 
-The `structure` field must be the **exact** registry ID (from `/locate structure`), for example `minecraft:desert_pyramid` or `yourmod:cool_dungeon`.
+`structure` must be the exact registry id. `/locate structure` will tell you. `minecraft:desert_pyramid` is fine. `yourmod:cool_dungeon` is fine. A guessed name is not.
 
-Required: `structure`, `icon` (item ID), `lore` and `description` (translation keys). Optional: `sort_order` (lower first), `mobs`, `loot_items`, `loot_tables`, `tags`.
+Required: `structure`, `icon` (item id), `lore` and `description` (translation keys). Optional: `sort_order` (lower first), `mobs`, `loot_items`, `loot_tables`, `tags`.
 
-Pages are unique by structure ID — the book never shows two pages for the same structure. To override a shipped page, replace the same resource path (for example `data/structureencyclopedia/structure_encyclopedia/fortress.json`) in a datapack that loads after this mod.
+One page per structure id. To override a shipped page, replace the same path, for example `data/structureencyclopedia/structure_encyclopedia/fortress.json`, in a datapack that loads after this mod.
 
-Optional display name: `"structureencyclopedia.name.yourmod.cool_dungeon": "Cool Dungeon"`. If missing, the client falls back to `structure.<namespace>.<path>`.
+Display name, if you want one: `"structureencyclopedia.name.yourmod.cool_dungeon": "Cool Dungeon"`. If you skip it, the client falls back to `structure.<namespace>.<path>`.
+
+Write the lore like a page in a real book. Two sentences beat a bullet list of mechanics. Players already fought the place. They want to know what it was.

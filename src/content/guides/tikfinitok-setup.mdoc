@@ -6,17 +6,25 @@ section: config
 order: 2
 ---
 
-In TikFinity go to **Setup → Minecraft Connection**:
+In TikFinity: **Setup → Minecraft Connection**.
 
-- **Host:** `127.0.0.1`
-- **Port:** `4567`
+- Host: `127.0.0.1`
+- Port: `4567`
 
-Set your Minecraft username in TikFinity to match your in-game name **exactly**.
+The username field must match your in-game name exactly. `Steve` and `steve` are different.
 
-Create actions with **Exec Minecraft Command**, for example:
+Make an action that uses **Exec Minecraft Command**. A gift that drops a zombie above you:
 
 ```
 execute at YourName run summon zombie ~ ~5 ~
 ```
 
-After first launch, edit `config/tikfinitok-common.toml` to change the web server port. Any ServerTap-compatible client can use the same HTTP API.
+A rose that gives a golden apple:
+
+```
+execute as YourName run give @s golden_apple
+```
+
+Keep commands cheap at first. A raid every like will ruin a recording faster than it will make a clip.
+
+After the first launch you can change the port in `config/tikfinitok-common.toml`. Anything that talks ServerTap HTTP can use that same API. TikFinity is just the common client.

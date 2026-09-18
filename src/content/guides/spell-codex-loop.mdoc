@@ -6,12 +6,16 @@ section: gameplay
 order: 2
 ---
 
-The Codex loop is always the same:
+The loop never really changes. You find a spell, you pay to rank it up, you put it on the bar, you cast it.
 
-1. **Discover** spells into your Codex (from Iron’s base schools and compatible school addons).
-2. Open the Codex with the [Spell Actionbar](/mods/spell-actionbar) key.
-3. Select matching **ink**, then press **+** to unlock the next tier.
-4. Click an unlocked spell, choose a tier if asked, and place it on the action bar.
-5. Cast from the action bar only.
+**Discover.** Iron’s schools and addons like [Leylines](/mods/leylines) show up as tabs once the server has seen them. Ways in: Codex pages, converting old scrolls, or shift-right-clicking a filled spellbook to pull the spells out (the book stays, empty). Creative-only Iron’s spells stay hidden unless you flip `includeCreativeSpells` in `codex_settings.json`.
 
-School tabs, discovery progress bars, and horizontal scrolling help when you have wide books or many schools. Use **Edit HUD** in the Codex to reposition the action bar, mana group, and cast/charge bar. The action bar HUD stays hidden until at least one spell is equipped.
+**Unlock.** Discovering a spell is not the same as owning every rank. Pick the matching **ink** under the Codex, then hit **+**. If nothing happens, you have the wrong rarity or you cannot pay the XP.
+
+**Equip.** Click an unlocked spell. If it has several tiers, pick one. Drop it on the action bar. Wide books and long school lists scroll. The little inspector on the left fills in when you click a spell: name, school, mana, cooldown, the guide blurb.
+
+**Cast.** Action bar only. The HUD hides until the first spell is on it.
+
+Edit HUD is the button on the Codex. Action bar, mana, and the cast bar drag separately. Each one has a small scale control. You are not stuck with the default pile above the hotbar.
+
+A pack with many schools will look busy. Use the school arrows, and do not panic if the tab you want is off-screen. Scroll the tab strip.

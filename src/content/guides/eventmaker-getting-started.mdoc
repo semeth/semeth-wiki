@@ -6,14 +6,14 @@ section: getting-started
 order: 1
 ---
 
-EventMaker is an authoring toolkit: invisible triggers, location markers, and datapack (or KubeJS) command polls.
+EventMaker is for pack authors. Players should never see a block. They walk through a doorway and something happens.
 
-Authoring flow:
+The short version:
 
-1. Place **Event Trigger** blocks, or inject trigger IDs onto normal blocks.
-2. Optionally place **Event Location** blocks (or injected locations) with the same ID.
-3. Create a poll in `data/<namespace>/command_poll/`.
-4. Create an event in `data/<namespace>/event_trigger/` and reference that poll via `commands_poll`.
-5. Choose command origin with `command_location` and `command_location_range`.
+1. Place an **Event Trigger** (or inject a trigger id onto a normal block).
+2. Optionally place an **Event Location** with the same id. That is the spot commands should run from, not the player’s feet.
+3. Write a poll in `data/<namespace>/command_poll/`.
+4. Write an event in `data/<namespace>/event_trigger/` that points at that poll.
+5. Pick whether commands run on the player or at the location.
 
-Use it inside [EpicQuest Dungeoning](/mods/epicquest-dungeoning) pieces for doors, loot gates, and extract triggers.
+Inside an [EpicQuest Dungeoning](/mods/epicquest-dungeoning) piece this is how you open a door, drop a chest, or extract the party. Dungeoning 3.0 also has its own event markers. Use those for “player walked near this spot in this generate.” Use EventMaker when the trigger has to live in the overworld, the hub, or a structure that is not a dungeon instance.

@@ -1,0 +1,25 @@
+---
+title: A first event
+pageSlug: a-first-event
+mod: eventmaker
+section: config
+order: 4
+---
+
+Say you want a hidden door in a stone hallway. The player walks the last block, the wall opens, it never happens again.
+
+In creative, put a cyan **Event Trigger** on that last floor block, or inject the id onto the stone itself. Put an orange **Event Location** in the wall you want to delete. Same id on both, something like `mypack:hall_door`.
+
+Poll, `data/mypack/command_poll/hall_door.json`, one weighted command:
+
+```
+setblock ~ ~ ~ minecraft:air
+```
+
+Event, `data/mypack/event_trigger/hall_door.json`: `walk_through`, not persistent, `command_location` set to `event_location`, range 8. The `~` in the command is the orange block, not the player.
+
+Reload, walk the hall in survival. The wall is gone. Walk it again and nothing happens. That is a one-shot.
+
+Want a mob instead? Same setup, poll command is `summon zombie ~ ~1 ~`. The zombie appears on the marker, not in your face, if you used `event_location`.
+
+Need this inside a dungeon generate? Prefer [EpicQuest Dungeoning](/mods/epicquest-dungeoning) event markers for that. They reset when the instance wipes. EventMaker is the overworld / hub / static structure tool.

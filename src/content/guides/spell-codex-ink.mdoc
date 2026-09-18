@@ -6,10 +6,12 @@ section: gameplay
 order: 3
 ---
 
-Unlocking a tier costs **XP** and **one matching rarity ink**.
+Each next tier wants **XP** and **one ink** of the matching rarity. Common ink will not unlock a legendary rank. The ink slots under the Codex are the filter: select a rarity and the **+** buttons that do not match go dull.
 
-Hold a matching school focus for a **25%** XP discount (ink cost stays the same).
+Hold a focus for that school and the XP cost drops by **25%**. Ink cost does not. Creative mode skips the ink, which is handy when you are testing a pack.
 
-**Respec** refunds a configurable share of spent XP. Only unlocked tiers of a spell can be cast — discovering a spell is not the same as paying for the next rank.
+**Respec** gives back a slice of spent XP. Default is 25%, and pack authors can change that in `codex_settings.json`. You cannot respec a spell you never paid for.
 
-Ink slots sit under the Codex panel. If **+** does nothing, you are missing the rarity that matches the next tier, or you cannot afford the XP.
+If you just want more spells in the book without hunting rares, make an **Empty Codex Page** (paper + any Iron’s ink at an Arcane Anvil) and imprint at the **Scroll Forge** with a school focus. That costs 10 levels and only rolls undiscovered spells whose tier-1 ink is at or under the page’s rarity. It is the “I would rather craft than loot” path.
+
+Authors who want to hide a spell or lock a whole school can do it in JSON under `config/specs_irons_spellbooks/`. `spell_blacklist.json` and `school_access.json` are the two people actually touch. `/specs_codex school lock` is the live version of that for ops.

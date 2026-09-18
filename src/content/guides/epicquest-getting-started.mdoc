@@ -6,14 +6,14 @@ section: getting-started
 order: 1
 ---
 
-EpicQuest Dungeoning is for pack authors on NeoForge 1.21.1. Players attune a dungeon key, insert it into a **Dungeon Keystone**, and enter a generated jigsaw instance in a void dimension.
+This page is the player loop. Authors should read [Authoring dungeons](/mods/epicquest-dungeoning/authoring-dungeons) after they have run one key themselves.
 
-Player loop:
+You need an unbound **Dungeon Key** and a **Dungeon Keystone** the pack placed somewhere. The keystone is useless until the key is attuned.
 
-1. Attune an unbound key on an anvil with the dungeon’s `attunement_item`.
-2. Insert the key into a keystone. The mod generates the instance, fills leftover connectors with dead-ends, and places unique templates (for example a boss) in a late depth band.
-3. Portal entry teleports to a **Dungeon Player Spawn** block in your pieces.
-4. Completion or return starts a **10s group extract**, then **wipes** that dungeon until the next activation.
+Attune on an anvil. The other item is whatever that dungeon asked for. The pack’s JEI page usually shows it. Quartz for a quartz dungeon is the example in the CurseForge notes. The key’s tooltip should name the dungeon after the anvil.
 
-For in-piece events, place **Dungeon Event Markers** and ship datapack `dungeon_event` / `event_poll` JSON.
-[EventMaker](/mods/eventmaker) is still useful for triggers that live outside a dungeon instance.
+Put the key in the keystone. A portal opens. Walk through. You land on a **Dungeon Player Spawn** inside a generated layout. It is not the same hallway every time. Jigsaw pieces stitch together in a void.
+
+Clear the place, or press the return button when you have had enough. Everyone who is in that run shares a **10 second extract**. You come back out at the entry portal. The instance is wiped. Next key, new generate.
+
+If nothing generates, the key does not match that stone, or the pack’s dungeon files failed to load. That is an author problem, not a “break more blocks” problem.

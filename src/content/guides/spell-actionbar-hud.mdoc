@@ -6,15 +6,14 @@ section: gameplay
 order: 2
 ---
 
-The action bar sits above your hotbar and replaces Iron’s native spell bar and mana overlay so the two do not stack.
+The action bar sits just above your hotbar. Iron’s own spell bar and mana overlay are turned off so you don’t get two bars stacked on top of each other.
 
-What the HUD shows:
+Each slot is a picture of the spell. A cooldown wipe plays over the icon after you cast. If you cannot afford the mana, the icon goes dull. That’s your cue to wait, not mash.
 
-- Spell icons with cooldown overlays
-- Affordability tinting when you cannot pay mana
-- Compact keybind labels (for example `Q`, `s1`, `cR`)
-- A mana bar styled for this actionbar
+Key labels are short on purpose. `Q` is Q. `s1` is a slot bind. `cR` is a combo bind. Change them in vanilla Controls and the HUD follows.
 
-Cast with Iron’s quick-cast keys. The label on each slot is the key currently bound in Minecraft’s controls.
+The mana bar belongs to this HUD. It is not Iron’s default one. You can drag it in Edit HUD if you run Codex, or through the Actionbar offset settings if another addon exposes them.
 
-Companion HUD editors can preview and persist offsets through the Actionbar HUD APIs. If a slot looks empty, you have no spell equipped there — the bar stays quiet until at least one spell is set (especially when Codex is hiding the HUD until the first equip).
+Select-and-cast is there if you want it: highlight a filled slot, then fire Iron’s “cast selected” key (default `V`). Mouse wheel plus Iron’s scroll modifier (default Left Alt) walks filled slots. Quick-cast still works the same way it always did.
+
+If the whole HUD is gone, you probably have no spell equipped. Equip one and it comes back. Codex does the same thing until the first spell is on the bar.
