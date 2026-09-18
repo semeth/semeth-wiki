@@ -24,6 +24,10 @@ Building pieces:
 - Structure Block **SAVE** mirrors into the pack under `config/.../structures/`.
 - Put a **Dungeon Player Spawn** in the start/anchor piece.
 - Put a **Dungeon End Pad** only if you use `reach_end` completion.
+- Optional: place **Dungeon Event Markers** in pieces. In Creative, set `event_id` and `block_replace` (often air).
+  Ship matching datapack `dungeon_event` and `event_poll` JSON. Markers fire once per generate until wipe or
+  `/dungeon event reset`. Shared ids can chain with `chain_proximity`.
 - Keep at least one small dead-end in `fallback_pool`.
+- Layouts that miss the unique depth band are rejected and retried, so unique/boss pieces are not stub-only.
 
 Completion types: `kill_entity`, `collect_items`, or `reach_end`. Omit `completion` to disable auto-triggers; the return button, API, and `/dungeon complete` still extract.
