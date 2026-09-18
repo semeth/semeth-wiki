@@ -36,7 +36,7 @@ const kindLabel =
     <h3 class="break-words font-display text-2xl text-white">{mod.data.name}</h3>
     <p class="mt-2 text-sm leading-relaxed text-muted">{mod.data.tagline}</p>
     <div class="mt-4 flex flex-wrap items-center gap-3 text-xs text-muted">
-      {latestVersion && <span class="break-words text-gold-soft">{latestVersion}</span>}
+      {latestVersion && <span class="break-words text-gold-soft">v{latestVersion}</span>}
       <span>{mod.data.loader}</span>
       {mod.data.minecraftVersions[0] && <span>{mod.data.minecraftVersions[0]}</span>}
       {countLabel && <span class="text-gold-soft">{countLabel}</span>}
