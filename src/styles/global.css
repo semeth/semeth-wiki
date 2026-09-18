@@ -17,12 +17,14 @@
 html {
   color-scheme: dark;
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   background: var(--color-obsidian);
   color: var(--color-parchment);
   font-family: var(--font-sans);
+  overflow-x: clip;
 }
 
 ::selection {
@@ -37,6 +39,8 @@ body {
 .prose-wiki {
   max-width: 46rem;
   color: color-mix(in srgb, var(--color-parchment) 92%, white);
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .prose-wiki h2,
@@ -98,11 +102,16 @@ body {
 
 .prose-wiki code {
   padding: 0.1rem 0.35rem;
+  white-space: break-spaces;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .prose-wiki pre {
   padding: 1rem;
   overflow-x: auto;
+  max-width: 100%;
+  white-space: pre-wrap;
 }
 
 .prose-wiki pre code {
@@ -118,6 +127,28 @@ body {
   color: var(--color-muted);
 }
 
+.changelog-html {
+  max-width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.changelog-html h1,
+.changelog-html h2,
+.changelog-html h3,
+.changelog-html h4,
+.changelog-html h5,
+.changelog-html h6,
+.changelog-html p,
+.changelog-html li,
+.changelog-html a,
+.changelog-html code,
+.changelog-html span {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 .changelog-html h2 {
   font-size: 1.2rem;
   margin-top: 0.35rem;
@@ -125,6 +156,32 @@ body {
 
 .changelog-html h3 {
   font-size: 1.05rem;
+}
+
+.changelog-html img,
+.changelog-html video,
+.changelog-html iframe,
+.changelog-html svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.changelog-html pre,
+.changelog-html table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.changelog-html table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.changelog-html td,
+.changelog-html th {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .pagefind-ui {

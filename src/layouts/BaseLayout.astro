@@ -45,7 +45,7 @@ const pageTitle = title ? `${title} · ${site.name}` : site.name;
       <div class="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-gold/10 blur-3xl"></div>
     </div>
     <Header mods={mods} modpacks={modpacks} />
-    <main data-pagefind-body>
+    <main class="min-w-0 overflow-x-clip" data-pagefind-body>
       <slot />
     </main>
     <Footer />

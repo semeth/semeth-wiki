@@ -15,7 +15,7 @@ const countLabel = downloads != null ? `${formatDownloads(downloads)} downloads`
   href={mod.data.curseforgeUrl}
   target="_blank"
   rel="noreferrer"
-  class="inline-flex items-center gap-3 rounded-full bg-gold px-4 py-2 text-sm font-semibold text-obsidian transition hover:bg-gold-soft"
+  class="inline-flex max-w-full flex-wrap items-center gap-2 rounded-full bg-gold px-4 py-2 text-sm font-semibold text-obsidian transition hover:bg-gold-soft sm:gap-3"
 >
   <span>View on CurseForge</span>
   {countLabel && <span class="rounded-full bg-obsidian/15 px-2 py-0.5 text-xs font-medium">{countLabel}</span>}

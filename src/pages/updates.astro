@@ -7,27 +7,27 @@ const entries = await getAllChangelogs();
 ---
 
 <BaseLayout title="Updates" description="Combined changelog for every Semeth mod and modpack.">
-  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-    <p class="text-xs uppercase tracking-[0.28em] text-gold">Changelog</p>
-    <h1 class="mt-3 font-display text-5xl text-white">Updates</h1>
+  <section class="mx-auto min-w-0 max-w-3xl px-4 py-16 sm:px-6">
+    <p class="text-xs uppercase tracking-wider text-gold sm:tracking-[0.28em]">Changelog</p>
+    <h1 class="mt-3 break-words font-display text-4xl text-white sm:text-5xl">Updates</h1>
     <p class="mt-4 text-muted">Every CurseForge file across the wiki, newest first. Open a project for the full notes.</p>
-    <ol class="mt-10 space-y-6">
+    <ol class="mt-10 min-w-0 space-y-6">
       {
         entries.map((entry) => (
-          <li class="rounded-2xl border border-line bg-surface/70 p-5">
+          <li class="min-w-0 overflow-hidden rounded-2xl border border-line bg-surface/70 p-4 sm:p-5">
             <div class="flex flex-wrap items-baseline justify-between gap-3">
-              <a href={entry.href} class="font-display text-2xl text-white hover:text-gold-soft">
+              <a href={entry.href} class="min-w-0 break-words font-display text-xl text-white hover:text-gold-soft sm:text-2xl">
                 {entry.projectName}
                 <span class="ml-2 text-gold">{entry.version}</span>
               </a>
-              <time class="text-xs text-muted" datetime={entry.date.toISOString()}>
+              <time class="shrink-0 text-xs text-muted" datetime={entry.date.toISOString()}>
                 {formatDate(entry.date)}
               </time>
             </div>
             {entry.releaseType !== 'release' && (
               <p class="mt-2 text-xs uppercase tracking-wider text-amber-400">{entry.releaseType}</p>
             )}
-            <p class="mt-3 text-parchment/90">{entry.summary}</p>
+            <p class="mt-3 break-words text-parchment/90">{entry.summary}</p>
             {entry.minecraftVersions.length > 0 && (
               <p class="mt-3 text-xs text-muted">MC {entry.minecraftVersions.join(', ')}</p>
             )}

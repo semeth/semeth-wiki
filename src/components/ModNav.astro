@@ -22,7 +22,7 @@ const grouped = (Object.keys(sectionLabels) as Array<keyof typeof sectionLabels>
   .filter((group) => group.pages.length > 0);
 ---
 
-<aside class="lg:sticky lg:top-24">
+<aside class="min-w-0 lg:sticky lg:top-24">
   <p class="mb-3 text-xs uppercase tracking-[0.2em] text-muted">{navLabel}</p>
   <nav class="space-y-4 text-sm">
     <a

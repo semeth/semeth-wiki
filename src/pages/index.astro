@@ -61,11 +61,11 @@ const latest = (await getAllChangelogs()).slice(0, 5);
     <ul class="mt-6 divide-y divide-line rounded-2xl border border-line bg-surface/60">
       {
         latest.map((entry) => (
-          <li class="px-5 py-4">
-            <a href={entry.href} class="flex flex-wrap items-baseline justify-between gap-3">
-              <div>
-                <p class="text-sm text-gold-soft">{entry.projectName} · {entry.version}</p>
-                <p class="mt-1 text-parchment">{entry.summary}</p>
+          <li class="min-w-0 px-4 py-4 sm:px-5">
+            <a href={entry.href} class="flex min-w-0 flex-wrap items-baseline justify-between gap-3">
+              <div class="min-w-0">
+                <p class="break-words text-sm text-gold-soft">{entry.projectName} · {entry.version}</p>
+                <p class="mt-1 break-words text-parchment">{entry.summary}</p>
               </div>
               <time class="text-xs text-muted" datetime={entry.date.toISOString()}>
                 {formatDate(entry.date)}

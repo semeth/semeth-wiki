@@ -38,20 +38,20 @@ const next = index >= 0 && index < guides.length - 1 ? guides[index + 1] : undef
 ---
 
 <BaseLayout title={`${guide.data.title} · ${pack.data.name}`} description={pack.data.tagline} accent={pack.data.accent}>
-  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[16rem_minmax(0,1fr)] sm:px-6">
+  <div class="mx-auto grid min-w-0 max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[16rem_minmax(0,1fr)] sm:px-6">
     <ModNav mod={pack} guides={guides} current={guide.data.pageSlug} kind="modpack" />
-    <article>
-      <p class="text-xs uppercase tracking-[0.28em] text-gold">
-        <a href={`/modpacks/${pack.id}`} class="hover:text-gold-soft">{pack.data.name}</a>
+    <article class="min-w-0">
+      <p class="text-xs uppercase tracking-wider text-gold sm:tracking-[0.28em]">
+        <a href={`/modpacks/${pack.id}`} class="break-words hover:text-gold-soft">{pack.data.name}</a>
       </p>
-      <h1 class="mt-3 font-display text-5xl text-white">{guide.data.title}</h1>
-      <div class="prose-wiki mt-8">
+      <h1 class="mt-3 break-words font-display text-4xl text-white sm:text-5xl">{guide.data.title}</h1>
+      <div class="prose-wiki mt-8 min-w-0">
         <Content />
       </div>
-      <nav class="mt-12 flex justify-between gap-4 border-t border-line pt-6 text-sm">
+      <nav class="mt-12 flex flex-wrap justify-between gap-4 border-t border-line pt-6 text-sm">
         {
           prev ? (
-            <a class="text-gold hover:text-gold-soft" href={`/modpacks/${pack.id}/${prev.data.pageSlug}`}>
+            <a class="min-w-0 break-words text-gold hover:text-gold-soft" href={`/modpacks/${pack.id}/${prev.data.pageSlug}`}>
               ← {prev.data.title}
             </a>
           ) : (
@@ -62,7 +62,7 @@ const next = index >= 0 && index < guides.length - 1 ? guides[index + 1] : undef
         }
         {
           next ? (
-            <a class="text-gold hover:text-gold-soft" href={`/modpacks/${pack.id}/${next.data.pageSlug}`}>
+            <a class="min-w-0 break-words text-right text-gold hover:text-gold-soft" href={`/modpacks/${pack.id}/${next.data.pageSlug}`}>
               {next.data.title} →
             </a>
           ) : (

@@ -35,13 +35,13 @@ const downloads = await getDownloadCount(pack.data.curseforgeProjectId);
 ---
 
 <BaseLayout title={pack.data.name} description={pack.data.tagline} accent={pack.data.accent}>
-  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[16rem_minmax(0,1fr)] sm:px-6">
+  <div class="mx-auto grid min-w-0 max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[16rem_minmax(0,1fr)] sm:px-6">
     <ModNav mod={pack} guides={guides} current="overview" kind="modpack" />
-    <article>
-      <p class="text-xs uppercase tracking-[0.28em] text-gold">Modpack</p>
-      <div class="mt-4 flex items-center gap-4">
+    <article class="min-w-0">
+      <p class="text-xs uppercase tracking-wider text-gold sm:tracking-[0.28em]">Modpack</p>
+      <div class="mt-4 flex min-w-0 items-center gap-4">
         <ModLogo mod={pack} size="lg" kind="modpack" />
-        <h1 class="font-display text-5xl text-white">{pack.data.name}</h1>
+        <h1 class="min-w-0 break-words font-display text-4xl text-white sm:text-5xl">{pack.data.name}</h1>
       </div>
       <p class="mt-4 max-w-2xl text-lg text-muted">{pack.data.tagline}</p>
       <div class="mt-6 flex flex-wrap items-center gap-3">
@@ -92,12 +92,12 @@ const downloads = await getDownloadCount(pack.data.curseforgeProjectId);
                 Full changelog
               </a>
             </div>
-            <div class="mt-4 rounded-2xl border border-line bg-surface/60 p-5">
-              <p class="text-gold">
+            <div class="mt-4 min-w-0 overflow-hidden rounded-2xl border border-line bg-surface/60 p-4 sm:p-5">
+              <p class="break-words text-gold">
                 {latest.version}
                 <span class="ml-2 text-xs text-muted">{formatDate(latest.date)}</span>
               </p>
-              <p class="mt-2">{latest.summary}</p>
+              <p class="mt-2 break-words">{latest.summary}</p>
             </div>
           </section>
         )

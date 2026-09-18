@@ -12,7 +12,7 @@ const { mods, modpacks = [] } = Astro.props;
 const path = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-40 border-b border-line/80 bg-obsidian/80 backdrop-blur-md" data-pagefind-ignore>
+<header class="sticky top-0 z-40 max-w-full overflow-x-clip border-b border-line/80 bg-obsidian/80 backdrop-blur-md" data-pagefind-ignore>
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
     <a href="/" class="group flex items-baseline gap-2">
       <span class="font-display text-2xl font-semibold tracking-wide text-parchment">Semeth</span>
@@ -85,7 +85,7 @@ const path = Astro.url.pathname;
 
     <a href="/search" class="rounded-full border border-line px-3 py-1.5 text-sm md:hidden">Search</a>
   </div>
-  <div class="flex gap-3 overflow-x-auto border-t border-line px-4 py-2 text-xs text-muted md:hidden">
+  <div class="flex min-w-0 max-w-full gap-3 overflow-x-auto overscroll-x-contain border-t border-line px-4 py-2 text-xs text-muted md:hidden">
     {
       mods.map((mod) => (
         <a class="flex shrink-0 items-center gap-2 whitespace-nowrap hover:text-gold-soft" href={`/mods/${mod.id}`}>

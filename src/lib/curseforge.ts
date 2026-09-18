@@ -178,6 +178,8 @@ export function sanitizeChangelogHtml(html: string): string {
     return `<${name}>`;
   });
 
+  out = out.replace(/&nbsp;/gi, ' ');
+
   return out.trim();
 }
 

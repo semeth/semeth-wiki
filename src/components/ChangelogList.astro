@@ -19,12 +19,12 @@ const channelLabel = {
   releases.length === 0 ? (
     <p class="mt-10 text-muted">No CurseForge files were returned for this project.</p>
   ) : (
-    <ol class="mt-10 space-y-8">
+    <ol class="mt-10 min-w-0 space-y-8">
       {releases.map((entry) => (
-        <li class="rounded-2xl border border-line bg-surface/70 p-5">
+        <li class="min-w-0 overflow-hidden rounded-2xl border border-line bg-surface/70 p-4 sm:p-5">
           <div class="flex flex-wrap items-baseline justify-between gap-3">
-            <h2 class="font-display text-3xl text-white">{entry.version}</h2>
-            <time class="text-xs text-muted" datetime={entry.date.toISOString()}>
+            <h2 class="min-w-0 break-words font-display text-2xl text-white sm:text-3xl">{entry.version}</h2>
+            <time class="shrink-0 text-xs text-muted" datetime={entry.date.toISOString()}>
               {formatDate(entry.date)}
             </time>
           </div>
@@ -35,7 +35,7 @@ const channelLabel = {
             <p class="mt-2 text-xs text-muted">MC {entry.minecraftVersions.join(', ')}</p>
           )}
           {entry.html ? (
-            <div class="prose-wiki changelog-html mt-4" set:html={entry.html} />
+            <div class="prose-wiki changelog-html mt-4 min-w-0" set:html={entry.html} />
           ) : (
             <p class="mt-4 text-sm text-muted">No changelog notes on this CurseForge file.</p>
           )}
