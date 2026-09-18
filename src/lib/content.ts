@@ -9,10 +9,12 @@ export type ProjectKind = 'mod' | 'modpack';
 
 export type ModWithStats = ModEntry & {
   downloads: number | null;
+  latestVersion: string | null;
 };
 
 export type ModpackWithStats = ModpackEntry & {
   downloads: number | null;
+  latestVersion: string | null;
 };
 
 export type ChangelogWithProject = CurseForgeRelease & {
@@ -33,21 +35,36 @@ export async function getModpacks(): Promise<ModpackEntry[]> {
   return packs.sort((a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name));
 }
 
+async function latestVersionsFor(projectIds: number[]): Promise<Map<number, string | null>> {
+  const unique = [...new Set(projectIds)];
+  const entries = await Promise.all(
+    unique.map(async (id) => {
+      const releases = await getProjectReleases(id);
+      return [id, releases[0]?.version ?? null] as const;
+    }),
+  );
+  return new Map(entries);
+}
+
 export async function getModsWithStats(): Promise<ModWithStats[]> {
   const mods = await getMods();
-  const counts = await getDownloadCounts(mods.map((mod) => mod.data.curseforgeProjectId));
+  const ids = mods.map((mod) => mod.data.curseforgeProjectId);
+  const [counts, versions] = await Promise.all([getDownloadCounts(ids), latestVersionsFor(ids)]);
   return mods.map((mod) => ({
     ...mod,
     downloads: counts.get(mod.data.curseforgeProjectId) ?? null,
+    latestVersion: versions.get(mod.data.curseforgeProjectId) ?? null,
   }));
 }
 
 export async function getModpacksWithStats(): Promise<ModpackWithStats[]> {
   const packs = await getModpacks();
-  const counts = await getDownloadCounts(packs.map((pack) => pack.data.curseforgeProjectId));
+  const ids = packs.map((pack) => pack.data.curseforgeProjectId);
+  const [counts, versions] = await Promise.all([getDownloadCounts(ids), latestVersionsFor(ids)]);
   return packs.map((pack) => ({
     ...pack,
     downloads: counts.get(pack.data.curseforgeProjectId) ?? null,
+    latestVersion: versions.get(pack.data.curseforgeProjectId) ?? null,
   }));
 }
 

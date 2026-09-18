@@ -109,9 +109,11 @@ async function sleep(ms: number): Promise<void> {
 
 async function cfFetch(path: string): Promise<Response | null> {
   const { base, headers } = apiClient();
+  const separator = path.includes('?') ? '&' : '?';
+  const url = `${base}${path}${separator}_=${Date.now()}`;
   for (let attempt = 0; attempt < 4; attempt += 1) {
     try {
-      const response = await fetch(`${base}${path}`, { headers, redirect: 'follow' });
+      const response = await fetch(url, { headers, redirect: 'follow' });
       if (response.status === 429 || response.status >= 500) {
         await sleep(400 * 2 ** attempt);
         continue;
@@ -271,7 +273,7 @@ function toRelease(file: CurseForgeFile, html: string): CurseForgeRelease {
 }
 
 export async function getProjectReleases(projectId: number): Promise<CurseForgeRelease[]> {
-  if (releaseCache.has(projectId)) {
+  if (!import.meta.env.DEV && releaseCache.has(projectId)) {
     return releaseCache.get(projectId) ?? [];
   }
 
@@ -288,7 +290,7 @@ export async function getProjectReleases(projectId: number): Promise<CurseForgeR
 }
 
 export async function getDownloadCount(projectId: number): Promise<number | null> {
-  if (downloadCache.has(projectId)) {
+  if (!import.meta.env.DEV && downloadCache.has(projectId)) {
     return downloadCache.get(projectId) ?? null;
   }
 

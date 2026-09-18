@@ -29,7 +29,7 @@ const latest = (await getAllChangelogs()).slice(0, 5);
         <h2 class="mb-5 font-display text-3xl text-white">{categoryLabels[group.category]}</h2>
         <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {group.mods.map((mod) => (
-            <ModCard mod={mod} downloads={mod.downloads} />
+            <ModCard mod={mod} downloads={mod.downloads} latestVersion={mod.latestVersion} />
           ))}
         </div>
       </section>
@@ -46,7 +46,7 @@ const latest = (await getAllChangelogs()).slice(0, 5);
         </p>
         <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {modpacks.map((pack) => (
-            <ModCard mod={pack} downloads={pack.downloads} kind="modpack" />
+            <ModCard mod={pack} downloads={pack.downloads} latestVersion={pack.latestVersion} kind="modpack" />
           ))}
         </div>
       </section>

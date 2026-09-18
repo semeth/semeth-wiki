@@ -8,10 +8,11 @@ import ModLogo from './ModLogo.astro';
 interface Props {
   mod: CollectionEntry<'mods'> | CollectionEntry<'modpacks'>;
   downloads?: number | null;
+  latestVersion?: string | null;
   kind?: ProjectKind;
 }
 
-const { mod, downloads = null, kind = 'mod' } = Astro.props;
+const { mod, downloads = null, latestVersion = null, kind = 'mod' } = Astro.props;
 const countLabel = downloads != null ? `${formatDownloads(downloads)} downloads` : null;
 const href = kind === 'modpack' ? `/modpacks/${mod.id}` : `/mods/${mod.id}`;
 const kindLabel =
@@ -35,6 +36,7 @@ const kindLabel =
     <h3 class="break-words font-display text-2xl text-white">{mod.data.name}</h3>
     <p class="mt-2 text-sm leading-relaxed text-muted">{mod.data.tagline}</p>
     <div class="mt-4 flex flex-wrap items-center gap-3 text-xs text-muted">
+      {latestVersion && <span class="break-words text-gold-soft">{latestVersion}</span>}
       <span>{mod.data.loader}</span>
       {mod.data.minecraftVersions[0] && <span>{mod.data.minecraftVersions[0]}</span>}
       {countLabel && <span class="text-gold-soft">{countLabel}</span>}
