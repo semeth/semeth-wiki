@@ -1,0 +1,25 @@
+name: Refresh CurseForge data
+
+on:
+  schedule:
+    # 06:00 UTC every day — rebuilds counts and changelogs from CurseForge
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    name: Trigger Cloudflare rebuild
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Cloudflare Deploy Hook
+        env:
+          HOOK: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "Missing GitHub secret CLOUDFLARE_DEPLOY_HOOK."
+            echo "Create it in Cloudflare: Workers & Pages → semeth-wiki → Settings → Builds → Deploy Hooks."
+            echo "Then add the URL as a repository secret named CLOUDFLARE_DEPLOY_HOOK."
+            exit 1
+          fi
+          curl --fail -sS -X POST "$HOOK"
+          echo "Cloudflare rebuild requested."

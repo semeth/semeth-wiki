@@ -31,7 +31,16 @@ The current Cloudflare dashboard creates a **Worker** from Git (no output-direct
 4. Advanced: `NODE_VERSION` = `22`
 5. After it is live, attach `semeth.wiki` under Custom domains.
 
-Counts and changelogs refresh on each rebuild. Add a daily Cron Trigger that hits the deploy hook if you want counts without content edits.
+Download counts and changelogs are fetched from CurseForge during `npm run build`. A GitHub Action (`.github/workflows/refresh-curseforge.yml`) asks Cloudflare to rebuild once a day, and you can run it by hand from the Actions tab.
+
+One-time setup:
+
+1. Cloudflare → **Workers & Pages** → **semeth-wiki** → **Settings** → **Builds** → **Deploy Hooks** → create a hook for `main`.
+2. GitHub → **semeth/semeth-wiki** → **Settings** → **Secrets and variables** → **Actions** → new secret:
+   - Name: `CLOUDFLARE_DEPLOY_HOOK`
+   - Value: the hook URL Cloudflare gave you
+
+Until that secret exists, the scheduled job fails on purpose so the missing setup is obvious.
 
 ## Keystatic on the live site (GitHub mode)
 
