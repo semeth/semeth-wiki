@@ -34,6 +34,17 @@ const pageTitle = title ? `${title} · ${site.name}` : site.name;
     />
     <slot name="head" />
     <title>{pageTitle}</title>
+    <script is:inline>
+      (() => {
+        if (!window.matchMedia('(min-width: 1280px)').matches) return;
+        const script = document.createElement('script');
+        script.async = true;
+        script.src =
+          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4573849572078686';
+        script.crossOrigin = 'anonymous';
+        document.head.appendChild(script);
+      })();
+    </script>
   </head>
   <body class="min-h-screen antialiased" style={`--mod-accent: ${accent}`}>
     <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
