@@ -25,6 +25,7 @@ const pageTitle = title ? `${title} · ${site.name}` : site.name;
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0c0b10" />
+    <meta name="google-adsense-account" content="ca-pub-4573849572078686" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,17 +35,11 @@ const pageTitle = title ? `${title} · ${site.name}` : site.name;
     />
     <slot name="head" />
     <title>{pageTitle}</title>
-    <script is:inline>
-      (() => {
-        if (!window.matchMedia('(min-width: 1280px)').matches) return;
-        const script = document.createElement('script');
-        script.async = true;
-        script.src =
-          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4573849572078686';
-        script.crossOrigin = 'anonymous';
-        document.head.appendChild(script);
-      })();
-    </script>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4573849572078686"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body class="min-h-screen antialiased" style={`--mod-accent: ${accent}`}>
     <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">

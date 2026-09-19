@@ -17,14 +17,12 @@
 html {
   color-scheme: dark;
   scroll-behavior: smooth;
-  overflow-x: clip;
 }
 
 body {
   background: var(--color-obsidian);
   color: var(--color-parchment);
   font-family: var(--font-sans);
-  overflow-x: clip;
 }
 
 ::selection {
