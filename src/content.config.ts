@@ -45,7 +45,11 @@ const guides = defineCollection({
   loader: glob({ pattern: '**/*.{mdoc,md}', base: './src/content/guides' }),
   schema: z.object({
     title: z.string(),
-    pageSlug: z.string(),
+    pageSlug: z
+      .string()
+      .refine((value) => value !== 'changelog' && value !== 'feedback', {
+        message: 'pageSlug cannot be changelog or feedback',
+      }),
     mod: z.string().nullable().optional(),
     modpack: z.string().nullable().optional(),
     section,

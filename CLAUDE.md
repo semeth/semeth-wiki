@@ -8,6 +8,15 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+For Bugs & feedback pages, also run the API worker (proxied from `/api` on port 4321):
+
+```
+npm run db:migrate:local
+npm run dev:api
+```
+
+Copy `.dev.vars.example` to `.dev.vars` and fill Discord app values. Redirect URL: `http://localhost:4321/api/auth/discord/callback`.
+
 ## CurseForge scans
 
 When asked to scan CurseForge or update the wiki from it, compare all of the following against `src/content` and `public/images`:

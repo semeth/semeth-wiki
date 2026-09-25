@@ -45,6 +45,12 @@ const downloads = await getDownloadCount(mod.data.curseforgeProjectId);
       <p class="mt-4 max-w-2xl text-lg text-muted">{mod.data.tagline}</p>
       <div class="mt-6 flex flex-wrap items-center gap-3">
         <CurseForgeButton mod={mod} downloads={downloads} />
+        <a
+          href={`/mods/${mod.id}/feedback`}
+          class="inline-flex items-center rounded-full border border-gold/60 px-4 py-2 text-sm font-semibold text-gold-soft hover:bg-gold/10"
+        >
+          Bugs & feedback
+        </a>
         <span class="text-sm text-muted">{mod.data.loader} · {mod.data.minecraftVersions.join(', ')}</span>
       </div>
 

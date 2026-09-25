@@ -1,9 +1,18 @@
-# Cloudflare Workers (static assets)
+# Cloudflare Workers (static assets + /api Worker)
 # Dashboard: Build command `npm run build`, Deploy command `npx wrangler deploy`
 name = "semeth-wiki"
+main = "src/worker/index.ts"
 compatibility_date = "2026-09-18"
 
 [assets]
 directory = "./dist"
+binding = "ASSETS"
 html_handling = "auto-trailing-slash"
 not_found_handling = "404-page"
+run_worker_first = ["/api/*"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "semeth-wiki"
+database_id = "d6e76e97-4b88-4b14-b715-435b9e2e69ec"
+migrations_dir = "migrations"

@@ -67,5 +67,14 @@ const grouped = (Object.keys(sectionLabels) as Array<keyof typeof sectionLabels>
     >
       Changelog
     </a>
+    <a
+      href={`${base}/feedback`}
+      class:list={[
+        'block rounded-lg px-3 py-1.5',
+        current === 'feedback' ? 'bg-raised text-gold-soft' : 'text-parchment/80 hover:text-gold-soft',
+      ]}
+    >
+      Bugs & feedback
+    </a>
   </nav>
 </aside>

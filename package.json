@@ -7,9 +7,12 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "dev:api": "wrangler dev --port 8787",
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "db:migrate:local": "wrangler d1 migrations apply semeth-wiki --local",
+    "db:migrate": "wrangler d1 migrations apply semeth-wiki --remote"
   },
   "dependencies": {
     "@astrojs/markdoc": "^2.0.9",
@@ -27,5 +30,8 @@
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "wrangler": "^4.141.0"
   }
 }

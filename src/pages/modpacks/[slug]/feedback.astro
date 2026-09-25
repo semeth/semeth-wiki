@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FeedbackBoard from '../../../components/FeedbackBoard';
+import ModNav from '../../../components/ModNav.astro';
+import { getGuidesForModpack, getModpacks } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const packs = await getModpacks();
+  return packs.map((pack) => ({ params: { slug: pack.id } }));
+}
+
+const { slug } = Astro.params;
+const packs = await getModpacks();
+const pack = packs.find((entry) => entry.id === slug);
+if (!pack) {
+  return Astro.redirect('/');
+}
+
+const guides = await getGuidesForModpack(pack.id);
+---
+
+<BaseLayout title={`Bugs & feedback · ${pack.data.name}`} description={`Report a bug or leave feedback for ${pack.data.name}.`} accent={pack.data.accent}>
+  <div class="mx-auto grid min-w-0 max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[16rem_minmax(0,1fr)] sm:px-6">
+    <ModNav mod={pack} guides={guides} current="feedback" kind="modpack" />
+    <article class="min-w-0 overflow-x-clip">
+      <p class="text-xs uppercase tracking-wider text-gold sm:tracking-[0.28em]">
+        <a href={`/modpacks/${pack.id}`} class="break-words hover:text-gold-soft">{pack.data.name}</a>
+      </p>
+      <h1 class="mt-3 font-display text-4xl text-white sm:text-5xl">Bugs & feedback</h1>
+      <p class="mt-3 text-sm text-muted">
+        Feedback is public. Bug reports stay private between you and Semeth. Continue with Discord — no
+        password on this site.
+      </p>
+      <FeedbackBoard client:load kind="modpack" slug={pack.id} name={pack.data.name} />
+    </article>
+  </div>
+</BaseLayout>

@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FeedbackBoard from '../../../components/FeedbackBoard';
+import ModNav from '../../../components/ModNav.astro';
+import { getGuidesForMod, getMods } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const mods = await getMods();
+  return mods.map((mod) => ({ params: { slug: mod.id } }));
+}
+
+const { slug } = Astro.params;
+const mods = await getMods();
+const mod = mods.find((entry) => entry.id === slug);
+if (!mod) {
+  return Astro.redirect('/');
+}
+
+const guides = await getGuidesForMod(mod.id);
+---
+
+<BaseLayout title={`Bugs & feedback · ${mod.data.name}`} description={`Report a bug or leave feedback for ${mod.data.name}.`} accent={mod.data.accent}>
+  <div class="mx-auto grid min-w-0 max-w-6xl gap-10 px-4 py-12 lg:grid-cols-[16rem_minmax(0,1fr)] sm:px-6">
+    <ModNav mod={mod} guides={guides} current="feedback" />
+    <article class="min-w-0 overflow-x-clip">
+      <p class="text-xs uppercase tracking-wider text-gold sm:tracking-[0.28em]">
+        <a href={`/mods/${mod.id}`} class="break-words hover:text-gold-soft">{mod.data.name}</a>
+      </p>
+      <h1 class="mt-3 font-display text-4xl text-white sm:text-5xl">Bugs & feedback</h1>
+      <p class="mt-3 text-sm text-muted">
+        Feedback is public. Bug reports stay private between you and Semeth. Continue with Discord — no
+        password on this site.
+      </p>
+      <FeedbackBoard client:load kind="mod" slug={mod.id} name={mod.data.name} />
+    </article>
+  </div>
+</BaseLayout>

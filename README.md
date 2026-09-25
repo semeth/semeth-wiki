@@ -12,6 +12,16 @@ npm run dev
 - Site: [http://localhost:4321](http://localhost:4321)
 - CMS: [http://localhost:4321/keystatic](http://localhost:4321/keystatic) (dev only — the static production build does not include the admin API)
 
+Bugs & feedback needs the API worker as well:
+
+```bash
+cp .dev.vars.example .dev.vars
+npm run db:migrate:local
+npm run dev:api
+```
+
+`astro dev` proxies `/api` to [http://127.0.0.1:8787](http://127.0.0.1:8787).
+
 Optional: copy `.env.example` to `.env` and set `CURSEFORGE_API_KEY` from [console.curseforge.com](https://console.curseforge.com/). Without the key, download counts and changelogs still load at build time through a public CurseForge API proxy.
 
 ```bash
@@ -42,6 +52,33 @@ One-time setup:
 
 Until that secret exists, the scheduled job fails on purpose so the missing setup is obvious.
 
+### Discord reports (one-time)
+
+Public Bugs & feedback pages use Discord OAuth and a Cloudflare D1 database.
+
+1. Create a Discord application at [discord.com/developers/applications](https://discord.com/developers/applications).
+2. OAuth2 redirect URLs:
+   - `https://semeth.wiki/api/auth/discord/callback`
+   - `http://localhost:4321/api/auth/discord/callback`
+3. Scope: `identify` only.
+4. Cloudflare → **Workers & Pages** → **semeth-wiki** → **Settings** → **Variables and Secrets**:
+   - `DISCORD_CLIENT_ID`
+   - `DISCORD_CLIENT_SECRET`
+   - `SESSION_SECRET` (long random string)
+   - `ADMIN_DISCORD_IDS` (your Discord user id; comma-separated if more than one)
+   - Optional: `PUBLIC_ORIGIN` = `https://semeth.wiki` if the Worker ever sits behind another host
+5. Create D1 and apply migrations:
+
+```bash
+npx wrangler d1 create semeth-wiki
+```
+
+Put the printed `database_id` in `wrangler.toml`, then:
+
+```bash
+npm run db:migrate
+```
+
 ## Keystatic on the live site (GitHub mode)
 
 Local storage only works in `astro dev`. To edit on `semeth.wiki`:
@@ -70,4 +107,4 @@ Until that is wired, edit via `npm run dev` → `/keystatic`, then commit.
 | Guides | `src/content/guides/` | Articles under `/mods/[mod]/[page]` or `/modpacks/[pack]/[page]` |
 | Changelogs | CurseForge files | Pulled at build for each project’s `/changelog` page and `/updates` |
 
-Do not use `changelog` as a guide `pageSlug` — that URL is reserved.
+Do not use `changelog` or `feedback` as a guide `pageSlug` — those URLs are reserved.
