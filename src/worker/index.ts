@@ -7,6 +7,7 @@ export interface Env {
   SESSION_SECRET?: string;
   ADMIN_DISCORD_IDS?: string;
   PUBLIC_ORIGIN?: string;
+  DISCORD_WEBHOOK_URL?: string;
 }
 
 const SESSION_COOKIE = 'semeth_session';
@@ -105,6 +106,44 @@ function publicOrigin(request: Request, env: Env): string {
 
 function redirectUri(request: Request, env: Env): string {
   return `${publicOrigin(request, env)}/api/auth/discord/callback`;
+}
+
+function siteOrigin(env: Env): string {
+  return (env.PUBLIC_ORIGIN ?? 'https://semeth.wiki').replace(/\/$/, '');
+}
+
+function feedbackPage(env: Env, kind: string, slug: string): string {
+  const base = kind === 'modpack' ? '/modpacks' : '/mods';
+  return `${siteOrigin(env)}${base}/${slug}/feedback`;
+}
+
+async function notifyDiscord(
+  env: Env,
+  payload: { title: string; body: string; url: string; color: number; fields: { name: string; value: string; inline?: boolean }[] },
+): Promise<void> {
+  const hook = env.DISCORD_WEBHOOK_URL?.trim();
+  if (!hook || !/^https:\/\/(discord|discordapp)\.com\/api\/webhooks\//.test(hook)) {
+    return;
+  }
+  try {
+    await fetch(hook, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        embeds: [
+          {
+            title: payload.title.slice(0, 256),
+            description: payload.body.slice(0, 1000),
+            url: payload.url,
+            color: payload.color,
+            fields: payload.fields,
+          },
+        ],
+      }),
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function isAdmin(env: Env, discordId: string): boolean {
@@ -580,6 +619,16 @@ async function createReport(request: Request, env: Env): Promise<Response> {
     .run();
 
   const id = inserted.meta.last_row_id;
+  await notifyDiscord(env, {
+    title: type === 'bug' ? `New bug: ${title}` : `New feedback: ${title}`,
+    body: text,
+    url: feedbackPage(env, kind, slug),
+    color: type === 'bug' ? 0xc0392b : 0xd4a54a,
+    fields: [
+      { name: 'Project', value: slug, inline: true },
+      { name: 'From', value: session.username, inline: true },
+    ],
+  });
   return json({
     report: {
       id,
@@ -658,10 +707,18 @@ async function createReply(request: Request, env: Env, id: number): Promise<Resp
   }
 
   const report = await env.DB.prepare(
-    'SELECT id, type, hidden, author_discord_id FROM reports WHERE id = ?',
+    'SELECT id, type, hidden, author_discord_id, project_kind, project_slug, title FROM reports WHERE id = ?',
   )
     .bind(id)
-    .first<{ id: number; type: string; hidden: number; author_discord_id: string }>();
+    .first<{
+      id: number;
+      type: string;
+      hidden: number;
+      author_discord_id: string;
+      project_kind: string;
+      project_slug: string;
+      title: string;
+    }>();
   if (!report || report.hidden) {
     return json({ error: 'Unknown report' }, 404);
   }
@@ -691,6 +748,19 @@ async function createReply(request: Request, env: Env, id: number): Promise<Resp
   )
     .bind(id, session.discord_id, text, now)
     .run();
+
+  if (!admin) {
+    await notifyDiscord(env, {
+      title: `Reply on ${report.type}: ${report.title}`,
+      body: text,
+      url: feedbackPage(env, report.project_kind, report.project_slug),
+      color: 0x5865f2,
+      fields: [
+        { name: 'Project', value: report.project_slug, inline: true },
+        { name: 'From', value: session.username, inline: true },
+      ],
+    });
+  }
 
   return json({
     reply: {

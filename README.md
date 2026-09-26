@@ -66,6 +66,7 @@ Public Bugs & feedback pages use Discord OAuth and a Cloudflare D1 database.
    - `DISCORD_CLIENT_SECRET`
    - `SESSION_SECRET` (long random string)
    - `ADMIN_DISCORD_IDS` (your Discord user id; comma-separated if more than one)
+   - `DISCORD_WEBHOOK_URL` (optional — channel webhook so new bugs and feedback ping Discord)
    - Optional: `PUBLIC_ORIGIN` = `https://semeth.wiki` if the Worker ever sits behind another host
 5. Create D1 and apply migrations:
 
