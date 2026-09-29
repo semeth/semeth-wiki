@@ -728,7 +728,7 @@ async function createReply(request: Request, env: Env, id: number): Promise<Resp
   if (report.type === 'bug' && !admin && !mine) {
     return json({ error: 'Not allowed' }, 403);
   }
-  if (!admin && !mine) {
+  if (report.type !== 'feedback' && report.type !== 'bug') {
     return json({ error: 'Not allowed' }, 403);
   }
 

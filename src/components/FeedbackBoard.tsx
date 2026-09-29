@@ -310,6 +310,7 @@ export default function FeedbackBoard({ kind, slug, name }: Props) {
               onDraft={(value) => setReplyDrafts((current) => ({ ...current, [report.id]: value }))}
               onReply={() => void sendReply(report.id)}
               onPatch={patchReport}
+              onSignIn={signIn}
             />
           ))}
         </ul>
@@ -335,6 +336,7 @@ export default function FeedbackBoard({ kind, slug, name }: Props) {
                 onDraft={(value) => setReplyDrafts((current) => ({ ...current, [report.id]: value }))}
                 onReply={() => void sendReply(report.id)}
                 onPatch={patchReport}
+                onSignIn={signIn}
               />
             ))}
           </ul>
@@ -354,6 +356,7 @@ function ReportCard({
   onDraft,
   onReply,
   onPatch,
+  onSignIn,
 }: {
   report: FeedbackReport;
   user: FeedbackSession | null;
@@ -364,9 +367,10 @@ function ReportCard({
   onDraft: (value: string) => void;
   onReply: () => void;
   onPatch: (id: number, payload: { status?: 'open' | 'closed'; hidden?: true }) => void;
+  onSignIn: () => void;
 }) {
   const [open, setOpen] = useState(false);
-  const canReply = Boolean(user?.isAdmin || report.mine);
+  const canReply = Boolean(user && (report.type === 'feedback' || user.isAdmin || report.mine));
   const replyLabel =
     report.replies.length === 1 ? '1 reply' : report.replies.length > 1 ? `${report.replies.length} replies` : null;
 
@@ -431,6 +435,13 @@ function ReportCard({
                 </li>
               ))}
             </ul>
+          )}
+          {!user && report.type === 'feedback' && (
+            <div className="mt-4 border-t border-line pt-4">
+              <button type="button" onClick={onSignIn} className={ghostButton}>
+                Sign in with Discord to reply
+              </button>
+            </div>
           )}
           {canReply && (
             <div className="mt-4 space-y-2 border-t border-line pt-4">
