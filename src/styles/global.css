@@ -141,6 +141,24 @@ body {
   white-space: nowrap;
 }
 
+.prose-wiki table.wiki-rift-table th:nth-child(1),
+.prose-wiki table.wiki-rift-table td:nth-child(1) {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.prose-wiki table.wiki-rift-table th:nth-child(2),
+.prose-wiki table.wiki-rift-table td:nth-child(2) {
+  width: 45%;
+  min-width: 16rem;
+  white-space: normal;
+}
+
+.prose-wiki table.wiki-rift-table th:nth-child(3),
+.prose-wiki table.wiki-rift-table td:nth-child(3) {
+  width: auto;
+}
+
 .prose-wiki code,
 .prose-wiki pre {
   font-size: 0.9em;
