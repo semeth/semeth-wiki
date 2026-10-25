@@ -6,16 +6,43 @@ section: gameplay
 order: 2
 ---
 
-The loop never really changes. You find a spell, you pay to rank it up, you put it on the bar, you cast it.
+The loop never really changes: find a spell, pay to rank it up, put it on the bar, cast it.
 
-**Discover.** Iron’s schools and addons like [Leylines](/mods/leylines) show up as tabs once the server has seen them. Ways in: Codex pages, converting old scrolls, or shift-right-clicking a filled spellbook to pull the spells out (the book stays, empty). Creative-only Iron’s spells stay hidden unless you flip `includeCreativeSpells` in `codex_settings.json`.
+## Discover
 
-**Unlock.** Discovering a spell is not the same as owning every rank. Pick the matching **ink** under the Codex, then hit **+**. If nothing happens, you have the wrong rarity or you cannot pay the XP.
+Ways a spell enters your Codex:
 
-**Equip.** Click an unlocked spell. If it has several tiers, pick one. Drop it on the action bar. Wide books and long school lists scroll. The little inspector on the left fills in when you click a spell: name, school, mana, cooldown, the guide blurb.
+| Method | What you do | Notes |
+| --- | --- | --- |
+| Codex Page | Right-click the page | Grants discovery + **tier I**. Message: “Discovered … — unlocked at tier I” |
+| Empty page + Scroll Forge | Hold school focus + Empty Codex Page, use the forge | Costs **10 levels** of XP, consumes focus and blank, rolls an undiscovered spell of that school whose tier-1 rarity ≤ blank ink |
+| Iron’s scroll | Use / pick up as Codex converts it | Scroll is studied, then fades. Same discover + tier I |
+| Filled spellbook | Sneak + right-click | Absorbs every spell in the book. Book stays empty — equip it for more actionbar slots |
 
-**Cast.** Action bar only. The HUD hides until the first spell is on it.
+## Unlock higher tiers
 
-Edit HUD is the button on the Codex. Action bar, mana, and the cast bar drag separately. Each one has a small scale control. You are not stuck with the default pile above the hotbar.
+1. Click an **ink** slot that matches the next tier’s rarity (Common → Legendary Iron’s inks).
+2. Press **+** on the spell.
+3. Pay the XP cost.
 
-A pack with many schools will look busy. Use the school arrows, and do not panic if the tab you want is off-screen. Scroll the tab strip.
+Default XP if nothing is configured: `20 + 10 × tier` (so tier 2 ≈ 40, tier 3 ≈ 50, …). Pack authors override this in `school_unlock_costs.json` / `spell_unlock_costs.json`.
+
+Hold a **matching school focus** while unlocking → **25% cheaper XP**. Ink cost does not change. Creative mode skips ink.
+
+Wrong ink selected → “That tier needs … ink”. No ink selected → “Select an ink in the Codex…”.
+
+**Respec** refunds a slice of spent unlock XP (default **25%**) and wipes paid higher tiers. Discoveries stay — every known spell drops back to free **tier I**.
+
+## Equip and cast
+
+1. Click an unlocked spell. If it has several tiers, pick one.
+2. Drop it on an actionbar slot.
+3. Close the Codex and cast from the bar only.
+
+Wide school lists scroll. Use the school tab arrows if the school you want is off-screen. Progress bars under the Codex track discoveries for the current school and overall.
+
+**Edit HUD** (button on the Codex) lets you drag the action bar, mana bar, and cast bar separately. Each has a scale control. Reset / Cancel / Done are on that screen.
+
+## Spellbooks = more slots
+
+Sneak + right-click a filled book → learn its spells. Equip the empty book → the action bar grows to that book’s slot count. Without a book, you get `defaultActionbarSlots` (default 3).

@@ -1,0 +1,126 @@
+---
+title: Custom encounter pools
+pageSlug: custom-encounters
+mod: leylines
+section: config
+order: 4
+---
+
+Encounters are datapack JSON. The server config decides which ones a charged pillar can open. You can ship new encounters in a datapack (or KubeJS `data/`) and point the pool at them without touching the mod jar.
+
+## Where files live
+
+```
+data/<namespace>/encounters/<id>.json
+```
+
+Built-in ones are under `leylines` — for example `data/leylines/encounters/leyline_breach.json`, which registers as `leylines:leyline_breach`. Your pack can use any namespace: `mypack:crystal_siege` from `data/mypack/encounters/crystal_siege.json`.
+
+`/reload` (or a world restart) reloads the encounter list.
+
+## Encounter JSON shape
+
+```json
+{
+  "color": "#9B6CFF",
+  "waves": [
+    {
+      "setup_time": 80,
+      "max_wave_time": 800,
+      "entities": [
+        { "entity": "minecraft:enderman", "count": 4 }
+      ],
+      "rewards": [
+        { "item": "minecraft:amethyst_shard", "count": 4 }
+      ]
+    },
+    {
+      "setup_time": 120,
+      "max_wave_time": 1000,
+      "entities": [
+        { "entity": "minecraft:evoker", "count": 1 },
+        { "entity": "minecraft:vex", "count": 2 }
+      ],
+      "rewards": [
+        { "experience": 250 }
+      ]
+    }
+  ],
+  "rewards": [
+    { "item": "minecraft:echo_shard", "count": 2 },
+    { "experience": 400 }
+  ]
+}
+```
+
+Fields:
+
+- **`color`** — hex tint for the rift (`#RRGGBB`). Optional; defaults to `#9B6CFF`.
+- **`waves`** — required, at least one. Played in order.
+  - **`setup_time`** — ticks before the wave’s mobs spawn (default 80).
+  - **`max_wave_time`** — ticks to clear the wave before the rift fails (default 800).
+  - **`entities`** — list of `{ "entity": "modid:id", "count": N }`. `count` defaults to 1. Any registered entity id works, including other mods.
+  - **`rewards`** — optional loot when that wave clears.
+- **`rewards`** (top level) — optional loot when the whole encounter clears. Ley Crystal chance is separate (config `leyCrystalClearChance`, default 25%) and is not listed here.
+
+Each reward entry can have:
+
+- `"item": "modid:id"` plus optional `"count"` (default 1)
+- `"experience": N` (XP orb)
+- both in one object if you want
+
+Copy a built-in file from the jar under `data/leylines/encounters/` and edit until it feels right.
+
+## Wiring the pool (server config)
+
+In `leylines-server.toml` (or the Leylines server config screen):
+
+| Option | Meaning |
+| --- | --- |
+| `encounterMode` | `"pool"` (default) or `"fixed"` |
+| `encounterPool` | List of encounter ids. One is picked at random when a pillar finishes charging. |
+| `fixedEncounterId` | Used only when mode is `"fixed"`. |
+
+Default pool:
+
+```toml
+encounterMode = "pool"
+encounterPool = [
+  "leylines:leyline_breach",
+  "leylines:void_rift",
+  "leylines:amethyst_surge",
+  "leylines:spectral_tide",
+  "leylines:chaotic_echo",
+  "leylines:ley_storm"
+]
+```
+
+To add yours without removing the defaults, append the id:
+
+```toml
+encounterPool = [
+  "leylines:leyline_breach",
+  "leylines:void_rift",
+  "leylines:amethyst_surge",
+  "leylines:spectral_tide",
+  "leylines:chaotic_echo",
+  "leylines:ley_storm",
+  "mypack:crystal_siege"
+]
+```
+
+To run only your encounter:
+
+```toml
+encounterMode = "fixed"
+fixedEncounterId = "mypack:crystal_siege"
+```
+
+Or set `encounterMode = "pool"` with a one-entry list. Unknown or invalid ids are skipped / logged — if the pool ends up empty, the pillar fails to open a rift.
+
+## Checklist
+
+1. Drop `data/<namespace>/encounters/<id>.json` in a datapack enabled for the world.
+2. `/reload` and confirm the log line about loaded leyline encounters went up.
+3. Put `namespace:id` in `encounterPool` (or set `fixedEncounterId`).
+4. Charge a pillar in-game and clear a wave to verify spawns and rewards.

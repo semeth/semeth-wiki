@@ -1,17 +1,59 @@
 ---
-title: Ink, XP, and respec
+title: Ink, pages, and XP
 pageSlug: ink-and-xp
 mod: spell-codex
 section: gameplay
 order: 3
 ---
 
-Each next tier wants **XP** and **one ink** of the matching rarity. Common ink will not unlock a legendary rank. The ink slots under the Codex are the filter: select a rarity and the **+** buttons that do not match go dull.
+Ink is Iron’s ink. Codex does not add its own bottles — it reads `irons_spellbooks:common_ink` through `legendary_ink`.
 
-Hold a focus for that school and the XP cost drops by **25%**. Ink cost does not. Creative mode skips the ink, which is handy when you are testing a pack.
+## Matching rarity
 
-**Respec** gives back a slice of spent XP. Default is 25%, and pack authors can change that in `codex_settings.json`. You cannot respec a spell you never paid for.
+Each next tier wants **one ink** of the rarity that Iron’s assigns to that spell level, plus XP. Common ink will not unlock a legendary rank. The ink row under the Codex is the filter: select a rarity and **+** buttons that need a different rarity go dull.
 
-If you just want more spells in the book without hunting rares, make an **Empty Codex Page** (paper + any Iron’s ink at an Arcane Anvil) and imprint at the **Scroll Forge** with a school focus. That costs 10 levels and only rolls undiscovered spells whose tier-1 ink is at or under the page’s rarity. It is the “I would rather craft than loot” path.
+| Rarity | Ink item |
+| --- | --- |
+| Common | `irons_spellbooks:common_ink` |
+| Uncommon | `irons_spellbooks:uncommon_ink` |
+| Rare | `irons_spellbooks:rare_ink` |
+| Epic | `irons_spellbooks:epic_ink` |
+| Legendary | `irons_spellbooks:legendary_ink` |
 
-Authors who want to hide a spell or lock a whole school can do it in JSON under `config/specs_irons_spellbooks/`. `spell_blacklist.json` and `school_access.json` are the two people actually touch. `/specs_codex school lock` is the live version of that for ops.
+## Craft path
+
+<div class="wiki-item">
+<img src="/images/spell-codex/blank_codex_page_rare.png" alt="Empty Codex Page" width="40" height="40" />
+<div>
+<strong>1. Arcane Anvil</strong>
+<p>Paper + ink → Empty Codex Page attuned to that ink. Tooltip: “Arcane Anvil: paper + ink -> Empty Codex Page”.</p>
+</div>
+</div>
+
+<div class="wiki-item">
+<img src="/images/spell-codex/codex_page.png" alt="Codex Page" width="40" height="40" />
+<div>
+<strong>2. Scroll Forge</strong>
+<p>Hold a school focus in one hand and the Empty Codex Page in the other. Right-click the Scroll Forge. Pays <strong>10 levels</strong> of XP, eats the focus and the blank, gives a Codex Page for a random undiscovered spell in that school.</p>
+</div>
+</div>
+
+If imprint fails:
+
+- “Need 10 levels worth of XP…” — earn more XP first
+- “No spells in this school match … ink” — use a higher rarity blank
+- “You already know every spell this … Empty Codex can imprint” — raise blank rarity or pick another school
+- “That school is blocked on this server” — school is in `school_blacklist.json`
+
+## XP costs (defaults)
+
+Tier I is free on discover. Higher tiers:
+
+- Default formula: `20 + 10 × tier` levels-worth from level 0
+- Override per school: `config/specs_irons_spellbooks/school_unlock_costs.json`
+- Override per spell: `spell_unlock_costs.json` (wins over school)
+- Focus discount: **25%** off XP only
+
+## Recycle
+
+Finished Codex Pages you do not need go in an **Alchemist Cauldron** for ink. Better than letting duplicates sit in a chest.

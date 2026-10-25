@@ -67,6 +67,18 @@ const downloads = await getDownloadCount(mod.data.curseforgeProjectId);
         )
       }
 
+      {
+        mod.data.banner && (
+          <img
+            src={mod.data.banner.startsWith('/') || mod.data.banner.startsWith('http')
+              ? mod.data.banner
+              : `/images/mods/${mod.data.banner}`}
+            alt={`${mod.data.name} in-game`}
+            class="mt-8 w-full rounded-2xl border-2 border-line object-cover"
+          />
+        )
+      }
+
       <div class="prose-wiki mt-10">
         {mod.data.description.split('\n\n').map((paragraph) => <p>{paragraph}</p>)}
       </div>

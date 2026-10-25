@@ -1,0 +1,125 @@
+---
+title: Config files
+pageSlug: config
+mod: spell-codex
+section: config
+order: 4
+---
+
+All Codex server configs live in:
+
+```
+config/specs_irons_spellbooks/
+```
+
+Edit on the **server**, then restart and rejoin so clients sync. JSON files are plain data. Spell and school ids come from auto-generated `known_spells.json` — copy from there; do not hand-edit that file (it is overwritten every server start).
+
+## `codex_settings.json`
+
+| Key | Default | Meaning |
+| --- | --- | --- |
+| `respecRefundPercent` | `25` | Percent of spent unlock XP refunded on Respec (0–100). Paid tiers reset; discoveries and free tier I stay. |
+| `includeCreativeSpells` | `false` | If true, Iron’s creative-only spells (`AllowCrafting = false`) appear in the Codex |
+| `allowImbuedWeaponCasting` | `true` | Held imbued weapons cast with **Cast Imbued Spell** (default `R`). Shows a slot left of the actionbar. Does **not** require Codex discovery/tier (blacklist still applies) |
+| `defaultActionbarSlots` | `3` | Visible actionbar slots with no spellbook equipped. Clamped 1–15. Equipped books still use their own slot count |
+
+Tier unlocks also need matching Iron’s ink. Discovery grants tier I for free. XP amounts are **not** in this file — use the cost configs below.
+
+```json
+{
+  "respecRefundPercent": 25,
+  "includeCreativeSpells": false,
+  "allowImbuedWeaponCasting": true,
+  "defaultActionbarSlots": 3
+}
+```
+
+## `school_unlock_costs.json`
+
+XP for unlocking **higher** tiers via the Codex `+` button.
+
+- Default if a tier is missing: `20 + 10 × tier`
+- Priority: `spell_unlock_costs.json` → this file → default
+- Use `{}` under a school to keep defaults for every tier
+- Missing schools are added automatically on server start
+
+```json
+{
+  "irons_spellbooks:fire": {
+    "1": 20,
+    "2": 35,
+    "3": 50
+  },
+  "irons_spellbooks:ice": {}
+}
+```
+
+## `spell_unlock_costs.json`
+
+Optional per-spell XP overrides (same units). Omit a spell or use `{}` to fall back to school / default.
+
+```json
+{
+  "irons_spellbooks:fireball": {
+    "1": 15,
+    "2": 25,
+    "3": 40
+  }
+}
+```
+
+## `spell_blacklist.json`
+
+Hide/block specific spells from the Codex and from casting.
+
+```json
+{
+  "blacklist": [
+    "irons_spellbooks:fireball",
+    "irons_spellbooks:magic_missile"
+  ]
+}
+```
+
+## `school_blacklist.json`
+
+Server-wide blocked schools: hidden from the Codex, cannot be cast, and cannot be locked/unlocked with `/specs_codex school` commands.
+
+```json
+{
+  "blacklist": [
+    "irons_spellbooks:blood",
+    "irons_spellbooks:eldritch"
+  ]
+}
+```
+
+## `known_spells.json`
+
+Auto-generated reference: spell ids grouped by school. **Overwrite every start** — treat it as a catalog when filling blacklists and cost files.
+
+## Admin commands (`/specs_codex`, permission 2)
+
+| Command | Effect |
+| --- | --- |
+| `/specs_codex spell unlock <players> <spell>` | Discover a spell for players |
+| `/specs_codex spell unlock_all <players>` | Discover every listed spell |
+| `/specs_codex spell lock <players> <spell>` | Forget a spell |
+| `/specs_codex spell lock_all <players>` | Clear all discoveries |
+| `/specs_codex spell max <players>` | Max tier on every **already discovered** spell |
+| `/specs_codex spell max <players> <school>` | Same, one school only |
+| `/specs_codex spell give_page <players> <spell>` | Give a Codex Page for that spell |
+| `/specs_codex spell list <player>` | List discovered spells |
+| `/specs_codex school lock / unlock <players> <school>` | Per-player school lock (separate from `school_blacklist.json`) |
+| `/specs_codex school lock_all / unlock_all <players>` | Lock or unlock every school for those players |
+| `/specs_codex school list <player>` | Show locked vs unlocked schools |
+
+`spell max` does **not** discover new spells — unlock first, then max.
+
+## Pack-author checklist
+
+1. Boot once so `known_spells.json` fills with every loaded school.
+2. Blacklist anything the pack should not offer.
+3. Tune `school_unlock_costs.json` if default XP feels too cheap or steep.
+4. Set `defaultActionbarSlots` and `respecRefundPercent` to match the power curve.
+5. Restart after edits; have a client rejoin to sync.

@@ -30,6 +30,6 @@ export default defineConfig({
       },
     },
   },
-  integrations: [react(), markdoc(), ...(enableKeystatic ? [keystatic()] : [])],
+  integrations: [react(), markdoc({ allowHTML: true }), ...(enableKeystatic ? [keystatic()] : [])],
   output: 'static',
 });

@@ -1,13 +1,19 @@
 name: Spell Codex
-tagline: Turn Iron’s spell list into a progression Codex, then cast only what you have earned from the Actionbar.
+tagline: Discover Iron’s spells into a Codex, unlock tiers with ink and XP, then cast only from Spell Actionbar.
 description: >-
-  Spell Codex is a progression addon for Iron’s Spells ’n Spellbooks. Spells are discovered into a Codex, unlocked
-  tier by tier with XP and ink, then equipped on Spell Actionbar. You cast only what you have earned — from Iron’s
-  base schools and compatible school addons such as Leylines.
+  Spell Codex replaces Iron’s scroll-and-wheel casting with a progression Codex.
+  You discover spells from Codex Pages, leftover scrolls, or by sneak-right-clicking a filled spellbook. Discovery
+  grants tier I for free. Higher tiers cost Iron’s ink of the matching rarity plus XP. Equip unlocked spells on
+  Spell Actionbar and cast from there only — the wheel, inventory scrolls, and books will not fire.
 
 
-  Requires Iron’s Spells ’n Spellbooks and Spell Actionbar 1.1.4 or newer. Casting is actionbar-only: Iron’s wheel,
-  books, inventory scrolls, and imbued weapons cannot cast for players once Codex is in control.
+  Craft an Empty Codex Page at an Arcane Anvil (paper + ink), imprint it at a Scroll Forge while holding a school
+  focus (costs 10 levels of XP and consumes the focus), then right-click the finished Codex Page to learn the spell.
+  School addons such as Leylines show up as extra tabs. Ars Nouveau needs the separate Spell Codex Ars Compat addon.
+
+
+  Requires Iron’s Spells ’n Spellbooks and Spell Actionbar 1.1.7+. Pack authors control costs, blacklists, and
+  default bar slots under config/specs_irons_spellbooks/.
 category: magic
 accent: '#8b6cff'
 loader: NeoForge
@@ -17,9 +23,11 @@ curseforgeUrl: https://www.curseforge.com/minecraft/mc-mods/spell-codex-irons-sp
 curseforgeProjectId: 1623374
 requirements:
   - 'Iron’s Spells ’n Spellbooks'
-  - 'Spell Actionbar 1.1.4+'
+  - 'Spell Actionbar 1.1.7+'
+  - 'NeoForge'
 relatedMods:
   - spell-actionbar
   - leylines
   - spell-codex-ars-compat
 icon: spell-codex.png
+banner: /images/spell-codex/overview.png

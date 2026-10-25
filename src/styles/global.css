@@ -90,6 +90,57 @@ body {
   text-underline-offset: 3px;
 }
 
+.prose-wiki table {
+  width: 100%;
+  margin: 1.25rem 0;
+  border-collapse: separate;
+  border-spacing: 0.4rem;
+  table-layout: auto;
+}
+
+.prose-wiki th,
+.prose-wiki td {
+  border: 1px solid var(--color-line);
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  background: var(--color-surface);
+}
+
+.prose-wiki th {
+  color: white;
+  font-weight: 600;
+  background: var(--color-raised);
+}
+
+/* Key column (and Default when it’s a lone code value): fit content. Last column fills. */
+.prose-wiki th:nth-child(1),
+.prose-wiki td:nth-child(1),
+.prose-wiki td:nth-child(2):has(> code:only-child) {
+  width: 1%;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.prose-wiki th:nth-child(1) code,
+.prose-wiki td:nth-child(1) code,
+.prose-wiki td:nth-child(2):has(> code:only-child) code {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.prose-wiki th:last-child,
+.prose-wiki td:last-child {
+  width: 100%;
+}
+
+.prose-wiki th:nth-child(2) {
+  width: 1%;
+  white-space: nowrap;
+}
+
 .prose-wiki code,
 .prose-wiki pre {
   font-size: 0.9em;
@@ -123,6 +174,60 @@ body {
   margin: 1.25rem 0;
   padding: 0.4rem 0 0.4rem 1rem;
   color: var(--color-muted);
+}
+
+.prose-wiki img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.prose-wiki img.wiki-shot {
+  display: block;
+  margin: 1rem 0 1.25rem;
+  border-radius: 0.55rem;
+  border: 2px solid var(--color-line);
+}
+
+.prose-wiki img.wiki-icon {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 0.35rem 0 0;
+  image-rendering: pixelated;
+  background: var(--color-ink);
+  border-radius: 0.45rem;
+  border: 2px solid var(--color-line);
+}
+
+.prose-wiki .wiki-item {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  margin: 1.1rem 0;
+}
+
+.prose-wiki .wiki-item img {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  image-rendering: pixelated;
+  background: var(--color-ink);
+  border-radius: 0.55rem;
+  border: 2px solid var(--color-line);
+}
+
+.prose-wiki .wiki-item > div {
+  min-width: 0;
+}
+
+.prose-wiki .wiki-item p {
+  margin: 0.25rem 0 0;
+}
+
+.prose-wiki .wiki-item strong:first-child {
+  color: white;
+  font-size: 1.05rem;
 }
 
 .changelog-html {
