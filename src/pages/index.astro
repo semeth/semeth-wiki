@@ -1,21 +1,28 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ModCard from '../components/ModCard.astro';
-import { site, categoryLabels } from '../lib/site';
-import { getModsWithStats, getModpacksWithStats, getAllChangelogs, groupMods } from '../lib/content';
+import { categoryLabels } from '../lib/site';
+import { getModsWithStats, getModpacksWithStats, getRecentChangelogs, groupMods } from '../lib/content';
 import { formatDate } from '../lib/format';
 
 const mods = await getModsWithStats();
 const modpacks = await getModpacksWithStats();
 const groups = groupMods(mods);
-const latest = (await getAllChangelogs()).slice(0, 5);
+const latest = await getRecentChangelogs(5);
 ---
 
 <BaseLayout>
   <section class="mx-auto max-w-6xl px-4 pb-8 pt-16 sm:px-6">
     <p class="text-xs uppercase tracking-[0.28em] text-gold">Mods · SC Final Adventure packs</p>
-    <h1 class="mt-4 max-w-3xl font-display text-5xl leading-tight text-white sm:text-6xl">
-      {site.name}
+    <h1 class="mt-4 flex max-w-3xl items-center gap-4">
+      <img
+        src="/images/semeth-logo.jpg"
+        alt="Semeth"
+        class="h-28 w-28 rounded-2xl object-cover ring-1 ring-line sm:h-36 sm:w-36"
+        width="144"
+        height="144"
+      />
+      <span class="font-display text-5xl leading-tight text-white sm:text-6xl">Wiki</span>
     </h1>
     <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
       Guides for how these mods work, and a changelog for every update. Iron’s Spellbooks addons, adventure and

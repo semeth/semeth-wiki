@@ -49,6 +49,8 @@ export type CurseForgeRelease = {
 
 const downloadCache = new Map<number, number | null>();
 const releaseCache = new Map<number, CurseForgeRelease[]>();
+const versionCache = new Map<number, string | null>();
+const fileIndexCache = new Map<number, CurseForgeRelease[]>();
 
 const allowedTags = new Set([
   'a',
@@ -225,27 +227,57 @@ async function mapPool<T, R>(items: T[], limit: number, fn: (item: T) => Promise
   return results;
 }
 
+async function fetchFilesPage(
+  projectId: number,
+  index: number,
+  pageSize: number,
+): Promise<{ files: CurseForgeFile[]; totalCount: number }> {
+  const response = await cfFetch(
+    `/mods/${projectId}/files?index=${index}&pageSize=${pageSize}`,
+  );
+  if (!response?.ok) {
+    return { files: [], totalCount: 0 };
+  }
+  const json = (await response.json()) as FilesResponse;
+  const page = (json.data ?? []).filter(
+    (file) => file.isAvailable !== false && !file.isServerPack,
+  );
+  return {
+    files: page,
+    totalCount: json.pagination?.totalCount ?? page.length,
+  };
+}
+
 async function fetchAllFiles(projectId: number): Promise<CurseForgeFile[]> {
   const files: CurseForgeFile[] = [];
   let index = 0;
   let total = Infinity;
 
   while (index < total) {
-    const response = await cfFetch(`/mods/${projectId}/files?index=${index}&pageSize=${PAGE_SIZE}`);
-    if (!response?.ok) {
-      break;
-    }
-    const json = (await response.json()) as FilesResponse;
-    const page = json.data ?? [];
+    const { files: page, totalCount } = await fetchFilesPage(projectId, index, PAGE_SIZE);
     files.push(...page);
-    total = json.pagination?.totalCount ?? files.length;
+    total = totalCount || files.length;
     if (page.length === 0) {
       break;
     }
     index += PAGE_SIZE;
   }
 
-  return files.filter((file) => file.isAvailable !== false && !file.isServerPack);
+  return files;
+}
+
+function fileToMetaRelease(file: CurseForgeFile): CurseForgeRelease {
+  const displayName = file.displayName || file.fileName || `File ${file.id}`;
+  return {
+    fileId: file.id,
+    version: versionFromFileName(displayName),
+    displayName,
+    date: file.fileDate ? new Date(file.fileDate) : new Date(0),
+    minecraftVersions: minecraftVersions(file.gameVersions),
+    releaseType: releaseChannel(file.releaseType),
+    html: '',
+    summary: displayName,
+  };
 }
 
 async function fetchFileChangelog(projectId: number, fileId: number): Promise<string> {
@@ -272,8 +304,9 @@ function toRelease(file: CurseForgeFile, html: string): CurseForgeRelease {
   };
 }
 
+/** Full releases with changelog HTML — for per-project changelog pages only. */
 export async function getProjectReleases(projectId: number): Promise<CurseForgeRelease[]> {
-  if (!import.meta.env.DEV && releaseCache.has(projectId)) {
+  if (releaseCache.has(projectId)) {
     return releaseCache.get(projectId) ?? [];
   }
 
@@ -289,8 +322,69 @@ export async function getProjectReleases(projectId: number): Promise<CurseForgeR
   return releases;
 }
 
+/** File list only (no per-file changelog fetch). Used for the combined Updates index. */
+export async function getProjectFileIndex(projectId: number): Promise<CurseForgeRelease[]> {
+  if (fileIndexCache.has(projectId)) {
+    return fileIndexCache.get(projectId) ?? [];
+  }
+
+  const files = await fetchAllFiles(projectId);
+  const releases = files
+    .map(fileToMetaRelease)
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
+  fileIndexCache.set(projectId, releases);
+  return releases;
+}
+
+/** Latest version string only — one files API call, no changelogs. */
+export async function getLatestVersion(projectId: number): Promise<string | null> {
+  if (versionCache.has(projectId)) {
+    return versionCache.get(projectId) ?? null;
+  }
+
+  const { files } = await fetchFilesPage(projectId, 0, 1);
+  const latest = files[0] ? fileToMetaRelease(files[0]) : null;
+  const version = latest?.version ?? null;
+  versionCache.set(projectId, version);
+  return version;
+}
+
+/**
+ * Newest releases across many projects, with changelog summaries only for the
+ * top `limit` (homepage “Latest updates”).
+ */
+export async function getRecentReleasesAcrossProjects(
+  projectIds: number[],
+  limit: number,
+): Promise<Array<{ projectId: number; release: CurseForgeRelease }>> {
+  const unique = [...new Set(projectIds)];
+  const latestPerProject = await Promise.all(
+    unique.map(async (projectId) => {
+      const { files } = await fetchFilesPage(projectId, 0, 1);
+      const file = files[0];
+      if (!file) {
+        return null;
+      }
+      return { projectId, file };
+    }),
+  );
+
+  const ranked = latestPerProject
+    .filter((entry): entry is { projectId: number; file: CurseForgeFile } => Boolean(entry))
+    .sort(
+      (a, b) =>
+        new Date(b.file.fileDate ?? 0).getTime() - new Date(a.file.fileDate ?? 0).getTime(),
+    )
+    .slice(0, Math.max(0, limit));
+
+  return mapPool(ranked, CHANGELOG_CONCURRENCY, async ({ projectId, file }) => {
+    const html = await fetchFileChangelog(projectId, file.id);
+    return { projectId, release: toRelease(file, html) };
+  });
+}
+
 export async function getDownloadCount(projectId: number): Promise<number | null> {
-  if (!import.meta.env.DEV && downloadCache.has(projectId)) {
+  if (downloadCache.has(projectId)) {
     return downloadCache.get(projectId) ?? null;
   }
 

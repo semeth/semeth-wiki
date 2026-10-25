@@ -1,6 +1,13 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { categoryOrder } from './site';
-import { getDownloadCounts, getProjectReleases, type CurseForgeRelease } from './curseforge';
+import {
+  getDownloadCounts,
+  getLatestVersion,
+  getProjectFileIndex,
+  getProjectReleases,
+  getRecentReleasesAcrossProjects,
+  type CurseForgeRelease,
+} from './curseforge';
 
 export type ModEntry = CollectionEntry<'mods'>;
 export type ModpackEntry = CollectionEntry<'modpacks'>;
@@ -38,10 +45,7 @@ export async function getModpacks(): Promise<ModpackEntry[]> {
 async function latestVersionsFor(projectIds: number[]): Promise<Map<number, string | null>> {
   const unique = [...new Set(projectIds)];
   const entries = await Promise.all(
-    unique.map(async (id) => {
-      const releases = await getProjectReleases(id);
-      return [id, releases[0]?.version ?? null] as const;
-    }),
+    unique.map(async (id) => [id, await getLatestVersion(id)] as const),
   );
   return new Map(entries);
 }
@@ -121,9 +125,8 @@ export async function getChangelogsForModpack(modpackSlug: string): Promise<Curs
   return getProjectReleases(pack.data.curseforgeProjectId);
 }
 
-export async function getAllChangelogs(): Promise<ChangelogWithProject[]> {
-  const [mods, packs] = await Promise.all([getMods(), getModpacks()]);
-  const projects = [
+function projectIndex() {
+  return Promise.all([getMods(), getModpacks()]).then(([mods, packs]) => [
     ...mods.map((mod) => ({
       projectKind: 'mod' as const,
       projectSlug: mod.id,
@@ -140,11 +143,16 @@ export async function getAllChangelogs(): Promise<ChangelogWithProject[]> {
       curseforgeUrl: pack.data.curseforgeUrl,
       projectId: pack.data.curseforgeProjectId,
     })),
-  ];
+  ]);
+}
+
+/** Combined Updates feed — file metadata only (no per-file changelog HTML fetch). */
+export async function getAllChangelogs(): Promise<ChangelogWithProject[]> {
+  const projects = await projectIndex();
 
   const grouped = await Promise.all(
     projects.map(async (project) => {
-      const releases = await getProjectReleases(project.projectId);
+      const releases = await getProjectFileIndex(project.projectId);
       return releases.map((release) => ({
         ...release,
         projectKind: project.projectKind,
@@ -157,6 +165,33 @@ export async function getAllChangelogs(): Promise<ChangelogWithProject[]> {
   );
 
   return grouped.flat().sort((a, b) => b.date.getTime() - a.date.getTime());
+}
+
+/** Homepage “Latest updates” — one files call per project, changelog HTML only for the top N. */
+export async function getRecentChangelogs(limit = 5): Promise<ChangelogWithProject[]> {
+  const projects = await projectIndex();
+  const byId = new Map(projects.map((project) => [project.projectId, project]));
+  const recent = await getRecentReleasesAcrossProjects(
+    projects.map((project) => project.projectId),
+    limit,
+  );
+
+  return recent.flatMap(({ projectId, release }) => {
+    const project = byId.get(projectId);
+    if (!project) {
+      return [];
+    }
+    return [
+      {
+        ...release,
+        projectKind: project.projectKind,
+        projectSlug: project.projectSlug,
+        projectName: project.projectName,
+        href: project.href,
+        curseforgeUrl: project.curseforgeUrl,
+      },
+    ];
+  });
 }
 
 export function groupMods<T extends ModEntry>(mods: T[]) {
